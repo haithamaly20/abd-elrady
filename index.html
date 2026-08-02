@@ -1,0 +1,1662 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>شقة عبد الراضي 2026 - نظام الإدارة المتكامل</title>
+
+    <!-- ═══ إعدادات تحويل الصفحة إلى تطبيق قابل للتثبيت (PWA) ═══
+         تعمل على الكمبيوتر (تثبيت من Chrome/Edge) وعلى الهاتف
+         (Android: "إضافة إلى الشاشة الرئيسية" / iPhone: "Add to Home Screen"). -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#123B52">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="شقة عبد الراضي">
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+    <link rel="icon" href="icons/icon-192.png" type="image/png">
+
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <!-- تمت إضافة Font Awesome لاستبدال معظم الـ Emoji بأيقونات احترافية.
+         ملاحظة: تم الإبقاء على بعض الـ Emoji (أيقونة حالة اليوم في التقويم 🔑/✅
+         وطابع الوقت فوق الصورة) لأنها تدخل ضمن لقطة html2canvas التي تُصدَّر كصورة/تُرسل
+         واتساب، وخط الأيقونات قد لا يُحمَّل قبل التصوير فيظهر كمربع فارغ داخل الصورة —
+         أبقيتها Emoji لضمان عدم كسر ميزتي تصدير الصورة وإرسال واتساب. -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        /* ═══════════════════════════════════════════════════════════════
+           نظام تصميم موحّد — شقة عبد الراضي
+           لوحة الألوان (5 ألوان رئيسية فقط):
+           navy  #123B52  اللون الأساسي / العناوين والأزرار الرئيسية
+           gold  #C89B3C  لون التمييز / الحجز والـ CTA
+           teal  #1E8A6E  النجاح / التوفر
+           coral #D64545  الخطر / التنبيهات والحذف
+           sand  #F5F2EA  الخلفية المحايدة
+           ═══════════════════════════════════════════════════════════════ */
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        :root {
+            --navy: #123B52;
+            --navy-light: #1D5679;
+            --gold: #C89B3C;
+            --gold-light: #E0B75C;
+            --teal: #1E8A6E;
+            --coral: #D64545;
+            --sand: #F5F2EA;
+
+            --bg-body: var(--sand);
+            --bg-container: rgba(255,255,255,0.85);
+            --text-color: #1C2B33;
+            --text-muted: #5B6B73;
+            --card-bg: rgba(255,255,255,0.55);
+            --card-solid: #ffffff;
+            --border-color: rgba(18,59,82,0.12);
+            --shadow: 0 10px 30px rgba(18,59,82,.10);
+            --shadow-sm: 0 3px 10px rgba(18,59,82,.08);
+            --cell-bg: rgba(18,59,82,0.04);
+            --cell-border: rgba(18,59,82,0.10);
+            --table-header: var(--navy);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 18px;
+            --font-ui: 'Cairo', 'Segoe UI', Tahoma, Arial, sans-serif;
+            --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+        }
+        body.dark-mode {
+            --bg-body: #0E1A22;
+            --bg-container: rgba(19,33,44,0.92);
+            --text-color: #EDF2F4;
+            --text-muted: #9FB0B8;
+            --card-bg: rgba(255,255,255,0.05);
+            --card-solid: #16262F;
+            --border-color: rgba(255,255,255,0.10);
+            --shadow: 0 10px 30px rgba(0,0,0,0.45);
+            --shadow-sm: 0 3px 10px rgba(0,0,0,0.35);
+            --cell-bg: rgba(255,255,255,0.04);
+            --cell-border: rgba(255,255,255,0.10);
+            --table-header: #0C2436;
+        }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-ui);
+            background-color: var(--bg-body);
+            padding: 10px;
+            transition: background-color 0.4s, color 0.3s;
+            color: var(--text-color);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        button, input, select, textarea { font-family: var(--font-ui); }
+        button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
+            outline: 2px solid var(--gold); outline-offset: 2px;
+        }
+        .container {
+            max-width: 1320px;
+            margin: 0 auto;
+            background: var(--bg-container);
+            padding: 16px;
+            border-radius: var(--radius-lg);
+            backdrop-filter: blur(18px);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow) !important;
+            transition: background 0.4s, border 0.3s;
+        }
+
+        /* ── الساعة ─────────────────────────────────────────────── */
+        .digital-clock {
+            font-family: var(--font-mono);
+            text-align: center;
+            padding: 14px 18px;
+            margin-bottom: 14px;
+            border-radius: var(--radius-lg);
+            background: linear-gradient(135deg, var(--navy), var(--navy-light));
+            border: 1px solid rgba(255,255,255,0.12);
+            box-shadow: inset 0 1px 2px rgba(255,255,255,0.15), 0 8px 22px rgba(18,59,82,0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+        .clock-day {
+            background: rgba(255,255,255,0.12);
+            color: #fff;
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            font-family: var(--font-ui);
+            border: 1px solid rgba(255,255,255,0.2);
+            letter-spacing: 0.3px;
+        }
+        .clock-time {
+            font-size: 2.1rem;
+            font-weight: 700;
+            color: #fff;
+            direction: ltr;
+            display: inline-flex;
+            align-items: baseline;
+            gap: 5px;
+            letter-spacing: 1px;
+        }
+        .clock-ampm { font-size: 0.95rem; color: var(--gold-light); font-weight: 700; margin-right: 2px; }
+
+        /* ── الشريط العلوي ──────────────────────────────────────── */
+        .top-bar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            background: var(--card-bg);
+            backdrop-filter: blur(14px);
+            border: 1px solid var(--border-color);
+            padding: 10px 12px;
+            border-radius: var(--radius-md);
+            margin-bottom: 12px;
+            transition: background 0.3s;
+            /* backdrop-filter ينشئ سياق تكديس (stacking context) خاصاً بهذا العنصر،
+               فيحبس z-index الخاص بقائمة الأدوات المنسدلة بداخله ولا يظهر فوق
+               العناصر التالية له في الصفحة (مثل لوحة الإحصائيات). رفعنا z-index
+               للشريط العلوي نفسه لضمان ظهور القائمة المنسدلة فوق كل ما يليها. */
+            position: relative;
+            z-index: 30;
+        }
+        .file-status {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 12.5px;
+            background: rgba(30,138,110,0.12);
+            color: var(--teal);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-weight: 700;
+        }
+        body.dark-mode .file-status { background: rgba(30,138,110,0.18); }
+        .file-status i { font-size: 13px; }
+
+        .toolbar-actions { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+
+        /* أزرار موحّدة الحجم — كل الأزرار الآن بنفس الارتفاع والزوايا */
+        .btn-pill {
+            border: none; cursor: pointer; height: 38px; border-radius: 10px;
+            display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+            font-weight: 700; font-size: 12.5px; padding: 0 14px;
+            transition: transform .15s ease, box-shadow .15s ease, filter .15s ease;
+            box-shadow: var(--shadow-sm); color: #fff;
+            touch-action: manipulation; white-space: nowrap;
+        }
+        .btn-pill i { font-size: 13px; }
+        .btn-pill:hover { filter: brightness(1.07); box-shadow: 0 6px 16px rgba(18,59,82,0.18); }
+        .btn-pill:active { transform: translateY(1px) scale(0.98); }
+        .btn-pill.icon-only { width: 38px; padding: 0; }
+
+        .btn-pill.tone-navy { background: linear-gradient(135deg, var(--navy), var(--navy-light)); }
+        .btn-pill.tone-gold { background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: #2B1F04; }
+        .btn-pill.tone-teal { background: linear-gradient(135deg, var(--teal), #22A886); }
+        .btn-pill.tone-coral { background: linear-gradient(135deg, var(--coral), #B93737); }
+        .btn-pill.tone-ghost {
+            background: transparent; color: var(--navy); border: 1.5px solid var(--border-color);
+            box-shadow: none;
+        }
+        body.dark-mode .btn-pill.tone-ghost { color: #EDF2F4; }
+        .btn-pill.tone-ghost:hover { background: rgba(18,59,82,0.06); }
+
+        /* قائمة الأدوات المنسدلة */
+        .tools-menu { position: relative; }
+        .tools-dropdown {
+            position: absolute; top: calc(100% + 8px); left: 0; z-index: 500;
+            background: var(--card-solid); border: 1px solid var(--border-color);
+            border-radius: var(--radius-md); box-shadow: 0 16px 40px rgba(18,59,82,0.22);
+            min-width: 220px; padding: 6px; display: none; flex-direction: column; gap: 2px;
+        }
+        .tools-dropdown.open { display: flex; }
+        .tools-dropdown button {
+            display: flex; align-items: center; gap: 10px; width: 100%;
+            background: transparent; border: none; color: var(--text-color);
+            padding: 10px 12px; border-radius: 8px; font-family: var(--font-ui);
+            font-size: 13px; font-weight: 600; cursor: pointer; text-align: right;
+            transition: background .15s;
+        }
+        .tools-dropdown button:hover { background: rgba(18,59,82,0.07); }
+        .tools-dropdown button i { width: 18px; text-align: center; color: var(--navy); }
+        body.dark-mode .tools-dropdown button i { color: var(--gold-light); }
+        .tools-dropdown .divider { height: 1px; background: var(--border-color); margin: 4px 6px; }
+
+        /* ── لوحة الإحصائيات ────────────────────────────────────── */
+        .dashboard-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+        .stat-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 14px 10px;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            transition: transform .2s ease, box-shadow .2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .stat-card:hover { transform: translateY(-3px); box-shadow: 0 10px 26px rgba(18,59,82,0.15); }
+        .stat-card i.stat-icon {
+            font-size: 15px; width: 32px; height: 32px; border-radius: 9px;
+            display: flex; align-items: center; justify-content: center; margin: 0 auto 6px;
+        }
+        .stat-card .num { font-size: 1.55rem; font-weight: 800; display: block; line-height: 1.2; font-family: var(--font-mono); }
+        .stat-card .label { font-size: 11px; opacity: 0.8; font-weight: 700; margin-top: 2px; display: block; }
+        .stat-card.blue .num { color: var(--navy-light); } .stat-card.blue i.stat-icon { background: rgba(29,86,121,.12); color: var(--navy-light); }
+        .stat-card.green .num { color: var(--teal); } .stat-card.green i.stat-icon { background: rgba(30,138,110,.12); color: var(--teal); }
+        .stat-card.purple .num { color: #6C5CE7; } .stat-card.purple i.stat-icon { background: rgba(108,92,231,.12); color: #6C5CE7; }
+        .stat-card.orange .num { color: var(--gold); } .stat-card.orange i.stat-icon { background: rgba(200,155,60,.15); color: var(--gold); }
+
+        /* ── التنبيهات ───────────────────────────────────────────── */
+        .alerts-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+            margin-bottom: 14px;
+            padding: 10px 12px;
+            background: var(--card-bg);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            min-height: 44px;
+            align-items: center;
+        }
+        .alerts-container > .alerts-icon { color: var(--gold); font-size: 15px; }
+        .alert-badge {
+            padding: 5px 13px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .alert-badge.danger { background: rgba(214,69,69,.13); color: var(--coral); }
+        .alert-badge.warning { background: rgba(200,155,60,.16); color: #8A6410; }
+        .alert-badge.info { background: rgba(29,86,121,.12); color: var(--navy-light); }
+        body.dark-mode .alert-badge.warning { color: var(--gold-light); }
+
+        /* ── نموذج الإضافة ──────────────────────────────────────── */
+        .form-group {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 14px;
+            background: var(--card-bg);
+            backdrop-filter: blur(14px);
+            padding: 14px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+            transition: background 0.3s;
+        }
+        .form-group > div { min-width: 0; }
+        .form-group .wide { grid-column: span 2; }
+        .form-group .full-width { grid-column: 1 / -1; }
+        .form-group .submit-col { grid-column: 1 / -1; }
+        .date-row { display: flex; gap: 5px; }
+        label { display: flex; align-items: center; gap: 5px; font-size: 11.5px; font-weight: 700; margin-bottom: 4px; color: var(--text-muted); }
+        label i { color: var(--navy-light); font-size: 11px; width: 14px; text-align: center; }
+        body.dark-mode label i { color: var(--gold-light); }
+        input, select, textarea {
+            width: 100%; padding: 9px 10px; border: 1.5px solid var(--border-color); border-radius: var(--radius-sm);
+            font-size: 14px; background: rgba(255,255,255,0.8); color: #1a1a1a;
+            -webkit-appearance: none; appearance: none;
+            transition: border-color .15s, box-shadow .15s;
+        }
+        input:focus, select:focus, textarea:focus { border-color: var(--navy-light); box-shadow: 0 0 0 3px rgba(29,86,121,0.12); }
+        textarea { min-height: 52px; resize: vertical; }
+        body.dark-mode input, body.dark-mode select, body.dark-mode textarea { background: rgba(0,0,0,0.25); color: #fff; border-color: rgba(255,255,255,0.14); }
+
+        .btn-add, .btn-update {
+            border: none; color: white; font-weight: 800; cursor: pointer; padding: 13px;
+            font-size: 14px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; gap: 8px;
+            transition: all .2s ease; box-shadow: var(--shadow-sm); width: 100%;
+            touch-action: manipulation;
+        }
+        .btn-add { background: linear-gradient(135deg, var(--teal), #22A886); }
+        .btn-update { background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: #2B1F04; }
+        .btn-add:hover, .btn-update:hover { filter: brightness(1.06); box-shadow: 0 8px 20px rgba(18,59,82,0.18); }
+        .btn-add:active, .btn-update:active { transform: translateY(1px); }
+
+        /* ── شريط البحث ─────────────────────────────────────────── */
+        .search-bar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+            background: var(--card-bg);
+            padding: 4px 4px 4px 4px;
+            border-radius: 30px;
+            border: 1px solid var(--border-color);
+            position: relative;
+        }
+        .search-bar i.search-icon { position: absolute; right: 16px; color: var(--text-muted); font-size: 13px; pointer-events: none; }
+        .search-bar input {
+            flex: 1;
+            padding: 9px 40px 9px 14px;
+            border-radius: 30px;
+            border: none;
+            background: transparent;
+        }
+        .search-bar input:focus { box-shadow: none; }
+
+        /* ── الجدول ──────────────────────────────────────────────── */
+        .table-wrapper {
+            overflow-x: auto;
+            margin-bottom: 14px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+            -webkit-overflow-scrolling: touch;
+        }
+        table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 13px; background: var(--card-solid); min-width: 760px; }
+        th, td { padding: 10px 8px; text-align: center; vertical-align: middle; border-bottom: 1px solid var(--border-color); }
+        th {
+            background: var(--table-header) !important; color: #fff; font-size: 12.5px; font-weight: 700;
+            position: sticky; top: 0; letter-spacing: 0.2px; z-index: 2;
+        }
+        th:first-child { border-top-right-radius: var(--radius-md); }
+        th:last-child { border-top-left-radius: var(--radius-md); }
+        tbody tr { background: var(--card-solid); transition: background .15s ease; }
+        tbody tr:nth-child(even) { background: rgba(18,59,82,0.025); }
+        body.dark-mode tbody tr:nth-child(even) { background: rgba(255,255,255,0.02); }
+        tbody tr:hover { background: rgba(200,155,60,0.09) !important; }
+        tbody tr:last-child td { border-bottom: none; }
+
+        .btn-edit, .btn-delete {
+            border: none; font-size: 11px; font-weight: 700; cursor: pointer;
+            min-width: 56px; height: 30px; color: white; border-radius: 8px;
+            transition: all .2s ease; padding: 0 10px;
+            display: inline-flex; align-items: center; justify-content: center; gap: 5px;
+            touch-action: manipulation;
+        }
+        .btn-edit { background: linear-gradient(135deg, var(--navy-light), var(--navy)); }
+        .btn-delete { background: linear-gradient(135deg, var(--coral), #B93737); }
+        .btn-edit:hover, .btn-delete:hover { filter: brightness(1.1); }
+
+        .color-badge { display: inline-block; width: 15px; height: 15px; border-radius: 50%; box-shadow: 0 1px 3px rgba(0,0,0,0.25); border: 2px solid var(--card-solid); }
+
+        /* ── التقويم ─────────────────────────────────────────────── */
+        .timeline-grid { display: flex; flex-direction: column; margin-top: 12px; gap: 4px; }
+        .timeline-row { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+
+        .day-cell {
+            border: 1px solid var(--cell-border);
+            background: var(--cell-bg);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            aspect-ratio: 1/1;
+            transition: transform 0.18s ease, box-shadow 0.18s ease;
+            font-size: 10px;
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 2px;
+            color: var(--text-color);
+            contain: layout style paint;
+            cursor: pointer;
+            touch-action: manipulation;
+        }
+        .day-cell:active { transform: scale(0.95); }
+        .day-cell.out-of-bounds { opacity: 0.22; pointer-events: none; }
+        .day-cell.booked {
+            color: white;
+            border: 1px solid rgba(255,255,255,.35);
+            box-shadow: inset 0 1px 1px rgba(255,255,255,.3), 0 4px 12px rgba(0,0,0,0.18);
+        }
+        .day-cell .date-display-wrapper { display: flex; align-items: center; justify-content: center; gap: 2px; font-weight: bold; width: 100%; }
+        .day-cell .day-number { font-size: 16px; font-weight: 800; font-family: var(--font-mono); }
+        .day-cell.booked .day-number { color: #fff !important; text-shadow: 0 1px 3px rgba(0,0,0,0.5); }
+        .day-cell:not(.booked):not(.out-of-bounds) .day-number { font-size: 30px; }
+        .day-cell .month-circle {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 20px; height: 20px; border-radius: 50%; color: white;
+            font-size: 10px; font-weight: bold; box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+            text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+        }
+        .day-cell:not(.booked):not(.out-of-bounds) .month-circle { width: 38px; height: 38px; font-size: 19px; }
+        .day-cell .day-name { font-size: 9px; font-weight: bold; opacity: 0.85; }
+        .day-cell.booked .day-name { color: #fff; }
+        .day-cell .icon-status { font-size: 12px; line-height: 1; margin-top: 1px; }
+        .day-cell .booking-note { font-size: 7px; background: rgba(0,0,0,0.4); padding: 1px 4px; border-radius: 4px; width: 95%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #fff; }
+        .day-cell.friday-highlight { border: 2px solid var(--teal) !important; }
+        .day-cell.current-date-highlight {
+            background-color: var(--gold) !important;
+            color: #2B1F04 !important;
+            border: 2px solid #8A6410 !important;
+            box-shadow: 0 0 0 4px rgba(200,155,60,0.18) !important;
+        }
+        .day-cell.current-date-highlight .day-number,
+        .day-cell.current-date-highlight .day-name { color: #2B1F04 !important; }
+
+        .booking-tooltip {
+            position: fixed;
+            background: rgba(14, 26, 34, 0.97);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: var(--radius-lg);
+            padding: 16px 18px;
+            color: #fff;
+            font-size: 13px;
+            max-width: 280px;
+            min-width: 230px;
+            box-shadow: 0 22px 55px rgba(0,0,0,0.55);
+            z-index: 10000;
+            line-height: 1.6;
+            direction: rtl;
+            display: none;
+        }
+        .booking-tooltip .tt-title { font-size: 15.5px; font-weight: 800; margin-bottom: 8px; color: var(--gold-light); display: flex; align-items: center; gap: 7px; }
+        .booking-tooltip .tt-title::before { font-family: "Font Awesome 6 Free"; font-weight: 900; content: "\f2bd"; }
+        .booking-tooltip .tt-row { display: flex; justify-content: space-between; gap: 10px; border-bottom: 1px solid rgba(255,255,255,0.08); padding: 4px 0; }
+        .booking-tooltip .tt-label { opacity: 0.7; display: flex; align-items: center; gap: 6px; }
+        .booking-tooltip .tt-label i { width: 14px; text-align: center; color: var(--gold-light); }
+        .booking-tooltip .tt-value { font-weight: 700; }
+        .booking-tooltip .tt-close {
+            position: absolute; top: 8px; left: 8px;
+            background: rgba(255,255,255,0.12); border: none; color: #fff;
+            width: 26px; height: 26px; border-radius: 50%; cursor: pointer;
+            font-size: 12px; display: none; align-items: center; justify-content: center;
+        }
+
+        /* ── سجل العمليات ───────────────────────────────────────── */
+        .audit-log {
+            margin-top: 16px;
+            padding: 12px 14px;
+            background: var(--card-bg);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+        }
+        .audit-log h3 { font-size: 14px; margin-bottom: 8px; display: flex; align-items: center; gap: 7px; color: var(--navy-light); }
+        body.dark-mode .audit-log h3 { color: var(--gold-light); }
+        .audit-log .log-item { font-size: 12px; padding: 6px 0; border-bottom: 1px solid var(--border-color); display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+        .audit-log .log-item:last-child { border-bottom: none; }
+        .audit-log .log-time { opacity: 0.55; font-size: 11px; font-family: var(--font-mono); }
+        .audit-log .log-item i { color: var(--navy-light); width: 14px; text-align: center; }
+        body.dark-mode .audit-log .log-item i { color: var(--gold-light); }
+
+        .image-timestamp { font-size: 13px; font-weight: bold; text-align: center; background: linear-gradient(135deg, #f5f7fa, #e9ecef); padding: 6px 10px; margin-bottom: 10px; border-radius: 30px; color: #2c3e50; display: inline-block; }
+        .timestamp-wrapper { text-align: center; margin-bottom: 8px; }
+
+        #loadingOverlay { position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(245,242,234,0.92); display:flex; flex-direction:column; gap:14px; justify-content:center; align-items:center; z-index:9999; font-size:16px; font-weight:700; color:var(--navy); font-family: var(--font-ui); }
+        .spinner { width: 46px; height: 46px; border: 4px solid rgba(18,59,82,0.15); border-top: 4px solid var(--gold); border-radius: 50%; animation: spin .9s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        #csvFileInput { display: none; }
+        .flex-wrap { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+
+        /* ── Toast Notifications (بديل alert للإشعارات المعلوماتية) ── */
+        #toastStack {
+            position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%);
+            z-index: 10002; display: flex; flex-direction: column; gap: 8px; align-items: center;
+            width: min(94vw, 420px);
+        }
+        .toast {
+            width: 100%; background: var(--navy); color: #fff; padding: 12px 16px;
+            border-radius: 12px; box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+            display: flex; align-items: center; gap: 10px; font-size: 13.5px; font-weight: 600;
+            animation: toast-in .25s ease;
+        }
+        .toast.success { background: linear-gradient(135deg, var(--teal), #17705A); }
+        .toast.error { background: linear-gradient(135deg, var(--coral), #A83030); }
+        .toast.info { background: linear-gradient(135deg, var(--navy), var(--navy-light)); }
+        .toast i { font-size: 16px; flex-shrink: 0; }
+        @keyframes toast-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes toast-out { from { opacity: 1; } to { opacity: 0; transform: translateY(6px); } }
+        .toast.leaving { animation: toast-out .2s ease forwards; }
+
+        /* ── سلة المحذوفات ──────────────────────────────────────── */
+        .trash-modal {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(14,26,34,0.55);
+            backdrop-filter: blur(3px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10001;
+            padding: 10px;
+        }
+        .trash-modal-content {
+            background: var(--bg-container);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 18px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            color: var(--text-color);
+        }
+        .trash-modal-content h3 { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; color: var(--coral); }
+        .trash-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 4px;
+            border-bottom: 1px solid var(--border-color);
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .trash-item:last-child { border-bottom: none; }
+        .trash-item button {
+            padding: 7px 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 11px;
+            color: white;
+            display: inline-flex; align-items: center; gap: 5px;
+        }
+        .btn-restore { background: var(--teal); }
+        .btn-permanent-delete { background: var(--coral); }
+        .trash-close-btn {
+            margin-top: 14px; padding: 11px 16px; border: none; background: var(--navy); color: white;
+            border-radius: 10px; cursor: pointer; font-weight: 700; width: 100%; font-family: var(--font-ui);
+            display: flex; align-items: center; justify-content: center; gap: 7px;
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 6px; font-size: 13px; }
+            .container { padding: 10px; border-radius: 12px; }
+            .digital-clock { padding: 11px 10px; gap: 8px; }
+            .clock-time { font-size: 1.7rem; }
+            .clock-day { font-size: 0.8rem; padding: 5px 10px; }
+            .clock-ampm { font-size: 0.8rem; }
+            .top-bar { padding: 8px; gap: 6px; }
+            .file-status { font-size: 11px; padding: 5px 10px; width: 100%; justify-content: center; }
+            .toolbar-actions { width: 100%; justify-content: center; }
+            .btn-pill { height: 36px; font-size: 11px; padding: 0 10px; flex: 1; min-width: 0; }
+            .btn-pill.icon-only { flex: 0 0 auto; width: 36px; }
+            .tools-dropdown { left: 50%; transform: translateX(50%); right: auto; }
+            .dashboard-stats { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+            .stat-card .num { font-size: 1.35rem; }
+            .stat-card .label { font-size: 10px; }
+            .alerts-container { padding: 8px 10px; font-size: 11px; }
+            .alert-badge { font-size: 11px; padding: 4px 10px; }
+            .form-group { grid-template-columns: 1fr; gap: 8px; padding: 10px; }
+            .form-group .wide, .form-group .submit-col { grid-column: 1; }
+            .date-row { flex-direction: row; }
+            .date-row input, .date-row select { flex: 1; min-width: 0; }
+            input, select, textarea { font-size: 16px; }
+            .table-wrapper { margin: 0 0 14px; border-radius: 10px; }
+            table { font-size: 12px; }
+            th, td { padding: 8px 5px; font-size: 11px; }
+            .timeline-row { gap: 3px; }
+            .timeline-grid { gap: 3px; }
+            .day-cell { border-radius: 9px; font-size: 9px; }
+            .day-cell .day-number { font-size: 14px; }
+            .day-cell:not(.booked):not(.out-of-bounds) .day-number { font-size: 26px; }
+            .day-cell .month-circle { width: 16px; height: 16px; font-size: 8px; }
+            .day-cell:not(.booked):not(.out-of-bounds) .month-circle { width: 30px; height: 30px; font-size: 15px; }
+            .day-cell .day-name { font-size: 8px; }
+            .day-cell .icon-status { font-size: 10px; }
+            .day-cell .booking-note { font-size: 6px; padding: 0 2px; }
+            .booking-tooltip {
+                left: 50% !important;
+                top: 50% !important;
+                transform: translate(-50%, -50%);
+                max-width: 90vw;
+                pointer-events: auto;
+            }
+            .booking-tooltip .tt-close { display: flex; }
+            .audit-log { padding: 10px; }
+            .audit-log h3 { font-size: 13px; }
+            .audit-log .log-item { font-size: 11px; }
+            .trash-item { flex-direction: column; align-items: stretch; }
+            .trash-item button { width: 100%; justify-content: center; }
+        }
+        @media (max-width: 400px) {
+            .clock-time { font-size: 1.45rem; }
+            .clock-day { font-size: 0.72rem; padding: 4px 8px; }
+            .day-cell .day-number { font-size: 12px; }
+            .day-cell:not(.booked):not(.out-of-bounds) .day-number { font-size: 22px; }
+            .day-cell .month-circle { width: 14px; height: 14px; font-size: 7px; }
+            .day-cell:not(.booked):not(.out-of-bounds) .month-circle { width: 26px; height: 26px; font-size: 13px; }
+            .day-cell .day-name { font-size: 7px; display: none; }
+            .btn-pill { font-size: 10px; }
+        }
+        @media (min-width: 769px) {
+            .day-cell:hover:not(.out-of-bounds) {
+                transform: scale(1.8) translateY(-3px);
+                box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+                z-index: 999;
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+            }
+            .day-cell:hover .month-circle { width: 14px; height: 14px; font-size: 7px; }
+            .day-cell:hover .day-number { font-size: 14px; }
+            .day-cell:hover .day-name { font-size: 7px; }
+            .day-cell:hover .icon-status { font-size: 12px; }
+            .day-cell:hover .booking-note { font-size: 7px; }
+        }
+    </style>
+</head>
+<body>
+<div id="loadingOverlay">
+    <div class="spinner"></div>
+    <div id="loadingText">جاري الاتصال بـ Google Sheets المباشر...</div>
+</div>
+
+<div class="container">
+    <div class="digital-clock" id="liveClock">
+        <span class="clock-day" id="clockDay">--</span>
+        <span class="clock-time">
+            <span id="clockTime">--:--</span>
+            <span class="clock-ampm" id="clockAmPm">--</span>
+        </span>
+    </div>
+
+    <div class="top-bar">
+        <div class="file-status">
+            <i class="fa-solid fa-cloud"></i><span>السحابة:</span><span id="connectionStatus">متصل <i class="fa-solid fa-circle-check"></i></span>
+        </div>
+        <div class="toolbar-actions">
+            <!-- الأزرار الأكثر استخداماً بقيت ظاهرة مباشرة: الوضع الليلي، صورة، إرسال واتساب -->
+            <button id="darkModeToggle" class="btn-pill tone-ghost icon-only" title="الوضع الليلي"><i class="fa-solid fa-moon"></i></button>
+            <button id="exportImageBtn" class="btn-pill tone-navy"><i class="fa-solid fa-image"></i><span>صورة</span></button>
+            <button id="whatsapp1Btn" class="btn-pill tone-teal" title="إرسال صورة التقويم عبر واتساب +201111196731"><i class="fa-brands fa-whatsapp"></i><span>واتساب 1</span></button>
+            <button id="whatsapp2Btn" class="btn-pill tone-teal" title="إرسال صورة التقويم عبر واتساب +201001415456"><i class="fa-brands fa-whatsapp"></i><span>واتساب 2</span></button>
+
+            <!-- قائمة الأدوات المنسدلة: تصدير Excel / استيراد CSV / إصلاح التواريخ / سلة المحذوفات -->
+            <div class="tools-menu">
+                <button id="toolsMenuBtn" class="btn-pill tone-gold" aria-haspopup="true" aria-expanded="false"><i class="fa-solid fa-toolbox"></i><span>أدوات</span><i class="fa-solid fa-chevron-down" style="font-size:10px;"></i></button>
+                <div class="tools-dropdown" id="toolsDropdown">
+                    <button id="exportExcelBtn"><i class="fa-solid fa-file-excel"></i>تصدير Excel</button>
+                    <button id="importCsvBtn"><i class="fa-solid fa-file-csv"></i>استيراد CSV</button>
+                    <div class="divider"></div>
+                    <button id="fixDatesBtn" title="يعيد حساب تاريخ النهاية لكل الحجوزات القديمة من (البداية + المدة)"><i class="fa-solid fa-wrench"></i>إصلاح التواريخ</button>
+                    <div class="divider"></div>
+                    <button id="trashBtn"><i class="fa-solid fa-trash-can"></i>سلة المحذوفات</button>
+                </div>
+            </div>
+            <input type="file" id="csvFileInput" accept=".csv">
+        </div>
+    </div>
+
+    <div class="dashboard-stats" id="dashboardStats">
+        <div class="stat-card blue"><i class="fa-solid fa-calendar-check stat-icon"></i><span class="num" id="statBooked">0</span><span class="label">محجوز</span></div>
+        <div class="stat-card green"><i class="fa-solid fa-circle-check stat-icon"></i><span class="num" id="statAvailable">0</span><span class="label">متاح</span></div>
+        <div class="stat-card purple"><i class="fa-solid fa-chart-pie stat-icon"></i><span class="num" id="statOccupancy">0%</span><span class="label">الإشغال</span></div>
+        <div class="stat-card orange"><i class="fa-solid fa-sack-dollar stat-icon"></i><span class="num" id="statRevenue">0</span><span class="label">الإيراد</span></div>
+    </div>
+
+    <div class="alerts-container" id="alertsContainer">
+        <i class="fa-solid fa-bell alerts-icon"></i>
+        <span id="alertsList" style="display:flex; gap:5px; flex-wrap:wrap;">لا توجد تنبيهات</span>
+    </div>
+
+    <div class="form-group">
+        <div><label><i class="fa-solid fa-user"></i>اسم العميل</label><input type="text" id="customerName" placeholder="أحمد"></div>
+        <div><label><i class="fa-solid fa-phone"></i>الهاتف</label><input type="text" id="customerPhone" placeholder="010..."></div>
+        <div>
+            <label><i class="fa-solid fa-calendar-day"></i>تاريخ البداية</label>
+            <div class="date-row">
+                <input type="number" id="startDay" min="1" max="31" placeholder="يوم">
+                <select id="startMonth"><option value="">الشهر</option></select>
+            </div>
+        </div>
+        <div><label><i class="fa-solid fa-hourglass-half"></i>المدة (أيام)</label><input type="number" id="daysCount" min="1" placeholder="7"></div>
+        <div><label><i class="fa-solid fa-sack-dollar"></i>الإجمالي</label><input type="number" id="totalAmount" placeholder="6000"></div>
+        <div><label><i class="fa-solid fa-money-bill-wave"></i>المدفوع</label><input type="number" id="paidAmount" placeholder="1500"></div>
+        <div class="wide"><label><i class="fa-solid fa-note-sticky"></i>ملاحظات</label><textarea id="notes" placeholder="تفاصيل..."></textarea></div>
+        <div class="submit-col"><button id="submitBtn" class="btn-add"><i class="fa-solid fa-plus"></i><span>إضافة</span></button></div>
+    </div>
+
+    <div class="search-bar">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" id="searchInput" placeholder="بحث بالاسم أو الهاتف...">
+    </div>
+
+    <div id="exportArea">
+        <div id="imageTimestampContainer"></div>
+        <div class="table-wrapper">
+            <table id="bookingsTable">
+                <thead><tr>
+                    <th>العميل</th><th>الهاتف</th><th>البداية</th><th>المدة</th><th>النهاية</th>
+                    <th>الإجمالي</th><th>المدفوع</th><th>ملاحظات</th><th>لون</th><th>إدارة</th>
+                </tr></thead>
+                <tbody id="bookingsTableBody"></tbody>
+            </table>
+        </div>
+        <div class="timeline-grid" id="timelineGridContainer"></div>
+    </div>
+
+    <div class="audit-log" id="auditLog">
+        <h3><i class="fa-solid fa-clipboard-list"></i>سجل التعديلات</h3>
+        <div id="auditLogList"></div>
+    </div>
+</div>
+
+<div class="booking-tooltip" id="bookingTooltip">
+    <!-- أيقونة العنوان مضافة عبر CSS ::before على #ttTitle حتى لا تتأثر بتحديث innerText من JS -->
+    <button class="tt-close" onclick="document.getElementById('bookingTooltip').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
+    <div class="tt-title" id="ttTitle">اسم العميل</div>
+    <div class="tt-row"><span class="tt-label"><i class="fa-solid fa-sack-dollar"></i>الإجمالي</span><span class="tt-value" id="ttTotal">0</span></div>
+    <div class="tt-row"><span class="tt-label"><i class="fa-solid fa-money-bill-wave"></i>المدفوع</span><span class="tt-value" id="ttPaid">0</span></div>
+    <div class="tt-row"><span class="tt-label"><i class="fa-solid fa-calendar-day"></i>من</span><span class="tt-value" id="ttStart">-</span></div>
+    <div class="tt-row"><span class="tt-label"><i class="fa-solid fa-calendar-check"></i>إلى</span><span class="tt-value" id="ttEnd">-</span></div>
+    <div class="tt-row" style="border-bottom:none;"><span class="tt-label"><i class="fa-solid fa-note-sticky"></i>ملاحظات</span><span class="tt-value" id="ttNotes">-</span></div>
+</div>
+
+<div class="trash-modal" id="trashModal">
+    <div class="trash-modal-content">
+        <h3><i class="fa-solid fa-trash-can"></i>سلة المحذوفات</h3>
+        <div id="trashList"></div>
+        <button class="trash-close-btn" onclick="document.getElementById('trashModal').style.display='none'"><i class="fa-solid fa-xmark"></i>إغلاق</button>
+    </div>
+</div>
+
+<script>
+(function(){
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw89dPJkt_Oe-tMRCslmkW-O3eIlW2E8wObUEAEwq1cFhMAmpxqhNlHbix52m2oAdKM/exec";
+    const CURRENT_YEAR = 2026;
+    const ARABIC_MONTHS = ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"];
+    const ARABIC_DAYS = ["الأحد", "الاثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"];
+    const monthCircleColors = { 1:"#e74c3c", 2:"#e67e22", 3:"#f1c40f", 4:"#2ecc71", 5:"#0072FF", 6:"#FF4500", 7:"#00CC44", 8:"#7B1FA2", 9:"#FFCC00", 10:"#00E5FF", 11:"#3498db", 12:"#9b59b6" };
+    const bookingPalette = ["#FF6B6B", "#4ECDC4", "#FFD93D", "#6C5CE7", "#00CEC9", "#FF9F43", "#E84393", "#2ECC71", "#0984E3", "#FD79A8"];
+
+    let bookings = [];
+    let trashedBookings = JSON.parse(localStorage.getItem('abdul_radi_trash') || '[]');
+    let editBookingId = null;
+    let auditLogs = JSON.parse(localStorage.getItem('audit_logs') || '[]');
+    let searchTerm = '';
+    const tooltip = document.getElementById('bookingTooltip');
+    const isMobile = () => window.innerWidth <= 768;
+
+    // ═══════════════════════════════════════════════════════════════
+    // Toast Notifications — بديل بصري أنيق لبعض رسائل alert() المعلوماتية
+    // (رسائل التأكيد confirm() تُركت كما هي كنوافذ حوار أصلية، لأن تحويلها
+    // لعنصر مخصص غير-متزامن يغيّر تسلسل تنفيذ الدوال الحالية ويحمل خطر كسرها)
+    // ═══════════════════════════════════════════════════════════════
+    let toastStack = document.getElementById('toastStack');
+    if (!toastStack) {
+        toastStack = document.createElement('div');
+        toastStack.id = 'toastStack';
+        document.body.appendChild(toastStack);
+    }
+    function showToast(message, type = 'info') {
+        const icons = { success: 'fa-circle-check', error: 'fa-circle-exclamation', info: 'fa-circle-info' };
+        const el = document.createElement('div');
+        el.className = `toast ${type}`;
+        el.innerHTML = `<i class="fa-solid ${icons[type] || icons.info}"></i><span>${message}</span>`;
+        toastStack.appendChild(el);
+        setTimeout(() => {
+            el.classList.add('leaving');
+            setTimeout(() => el.remove(), 220);
+        }, 3200);
+    }
+
+    // قائمة الأدوات المنسدلة (Tools) في الشريط العلوي
+    const toolsMenuBtn = document.getElementById('toolsMenuBtn');
+    const toolsDropdown = document.getElementById('toolsDropdown');
+    if (toolsMenuBtn && toolsDropdown) {
+        toolsMenuBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const willOpen = !toolsDropdown.classList.contains('open');
+            toolsDropdown.classList.toggle('open', willOpen);
+            toolsMenuBtn.setAttribute('aria-expanded', String(willOpen));
+        });
+        document.addEventListener('click', function(e) {
+            if (!toolsDropdown.contains(e.target) && e.target !== toolsMenuBtn) {
+                toolsDropdown.classList.remove('open');
+                toolsMenuBtn.setAttribute('aria-expanded', 'false');
+            }
+        });
+        // إغلاق القائمة تلقائياً بعد اختيار أي أداة بداخلها
+        toolsDropdown.addEventListener('click', function(e) {
+            if (e.target.closest('button')) {
+                toolsDropdown.classList.remove('open');
+                toolsMenuBtn.setAttribute('aria-expanded', 'false');
+            }
+        });
+    }
+
+    const monthSelect = document.getElementById('startMonth');
+    for (let m = 1; m <= 12; m++) {
+        const opt = document.createElement('option');
+        opt.value = m;
+        opt.textContent = `${m} - ${ARABIC_MONTHS[m-1]}`;
+        monthSelect.appendChild(opt);
+    }
+
+    function formatDateLocal(date) {
+        const y = date.getFullYear();
+        const m = String(date.getMonth() + 1).padStart(2, '0');
+        const d = String(date.getDate()).padStart(2, '0');
+        return `${y}-${m}-${d}`;
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // FIX #1: تطبيع التواريخ — تحويل أي صيغة إلى YYYY-MM-DD محلي
+    // ═══════════════════════════════════════════════════════════════
+    function normalizeDate(input) {
+        if (!input) return '';
+        if (typeof input !== 'string') input = String(input);
+        // إذا كانت بالفعل YYYY-MM-DD بدون وقت
+        if (/^\d{4}-\d{2}-\d{2}$/.test(input)) return input;
+        // إذا كانت صيغة ISO مثل 2026-07-03T00:00:00.000Z
+        // FIX: نستخرج التاريخ بقص النص مباشرة (بدون المرور بكائن Date)
+        // حتى لا يتأثر بفارق التوقيت المحلي للمتصفح (UTC offset)
+        const isoMatch = input.match(/^(\d{4})-(\d{2})-(\d{2})/);
+        if (isoMatch) {
+            return `${isoMatch[1]}-${isoMatch[2]}-${isoMatch[3]}`;
+        }
+        return input;
+    }
+
+    function updateClock() {
+        const now = new Date();
+        let hours = now.getHours();
+        const minutes = now.getMinutes();
+        const ampm = hours >= 12 ? 'م' : 'ص';
+        hours = hours % 12;
+        hours = hours ? hours : 12;
+        const timeStr = `${String(hours).padStart(2,'0')}:${String(minutes).padStart(2,'0')}`;
+        document.getElementById('clockTime').textContent = timeStr;
+        document.getElementById('clockAmPm').textContent = ampm;
+        document.getElementById('clockDay').textContent = ARABIC_DAYS[now.getDay()];
+    }
+    updateClock();
+    setInterval(updateClock, 10000);
+
+    function showLoading(show, text = "جاري المزامنة...") {
+        document.getElementById('loadingText').innerText = text;
+        document.getElementById('loadingOverlay').style.display = show ? 'flex' : 'none';
+    }
+
+    function hashString(str) {
+        let hash = 0;
+        for (let i = 0; i < str.length; i++) {
+            hash = ((hash << 5) - hash) + str.charCodeAt(i);
+            hash |= 0;
+        }
+        return Math.abs(hash);
+    }
+
+    function getColorForBooking(id) {
+        return bookingPalette[hashString(id) % bookingPalette.length];
+    }
+
+    function parseNotes(notesStr, booking = null) {
+        if (booking && booking._parsedNotes) return booking._parsedNotes;
+        let result;
+        try {
+            const data = JSON.parse(notesStr);
+            result = { name: data.name || '', phone: data.phone || '', total: data.total || 0, paid: data.paid || 0, text: data.text || '' };
+        } catch { 
+            result = { name: '', phone: '', total: 0, paid: 0, text: notesStr || '' }; 
+        }
+        if (booking) booking._parsedNotes = result;
+        return result;
+    }
+
+    function getCustomerName(b) { return parseNotes(b.notes, b).name || 'عميل'; }
+    function getTotalAmount(b) { return parseNotes(b.notes, b).total || 0; }
+    function getPaidAmount(b) { return parseNotes(b.notes, b).paid || 0; }
+
+    function addAuditLog(action, details) {
+        const entry = { time: new Date().toLocaleString('ar-EG'), action, details };
+        auditLogs.unshift(entry);
+        if (auditLogs.length > 10) auditLogs.pop();
+        localStorage.setItem('audit_logs', JSON.stringify(auditLogs));
+        renderAuditLog();
+    }
+
+    function renderAuditLog() {
+        const container = document.getElementById('auditLogList');
+        if (auditLogs.length === 0) { container.innerHTML = '<div style="opacity:0.6;">لا توجد سجلات.</div>'; return; }
+        container.innerHTML = auditLogs.map(log => 
+            `<div class="log-item"><span class="log-time">${log.time}</span><span>${log.action} - ${log.details}</span></div>`
+        ).join('');
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // FIX #2: تطبيع التواريخ عند الاستلام من السيرفر
+    // ═══════════════════════════════════════════════════════════════
+    function normalizeBookingDates(booking) {
+        if (booking.start) booking.start = normalizeDate(booking.start);
+        if (booking.end) booking.end = normalizeDate(booking.end);
+        if (booking.days !== undefined) booking.days = parseInt(booking.days) || 1;
+        return booking;
+    }
+
+    async function fetchBookingsFromSheets() {
+        showLoading(true, "جاري جلب أحدث الحجوزات...");
+        try {
+            let response = await fetch(SCRIPT_URL + "?t=" + Date.now());
+            if (response.ok) {
+                let cloudData = await response.json();
+                if(cloudData && cloudData.length > 0) {
+                    // تطبيع جميع التواريخ القادمة من السيرفر
+                    cloudData = cloudData.map(normalizeBookingDates);
+                    bookings = cloudData.filter(b => !b.deleted);
+                    trashedBookings = cloudData.filter(b => b.deleted);
+                    localStorage.setItem('abdul_radi_trash', JSON.stringify(trashedBookings));
+                }
+                renderAll();
+            } else throw new Error();
+        } catch (e) {
+            let local = localStorage.getItem('abdul_radi_backup');
+            if(local) {
+                const all = JSON.parse(local);
+                bookings = all.filter(b => !b.deleted).map(normalizeBookingDates);
+                trashedBookings = all.filter(b => b.deleted).map(normalizeBookingDates);
+            }
+            renderAll();
+        } finally { showLoading(false); }
+    }
+
+    async function sendDataToSheets(payload, messageText) {
+        showLoading(true, messageText);
+        try {
+            const response = await fetch(SCRIPT_URL, {
+                method: "POST",
+                headers: { "Content-Type": "text/plain" },
+                body: JSON.stringify(payload)
+            });
+            if (response.ok) {
+                const result = await response.json();
+                if (result.success) {
+                    // تطبيق التغيير محلياً فوراً
+                    applyLocalChange(payload);
+                    renderAll();
+                    // مزامنة الخلفية بعد ثانيتين
+                    setTimeout(() => fetchBookingsFromSheets(), 2000);
+                    
+                    if (payload.action === 'add') addAuditLog('<i class="fa-solid fa-plus"></i> إضافة', `حجز لـ ${getCustomerName(payload)}`);
+                    else if (payload.action === 'update') addAuditLog('<i class="fa-solid fa-pen"></i> تعديل', `تعديل حجز`);
+                    else if (payload.action === 'delete') addAuditLog('<i class="fa-solid fa-trash-can"></i> حذف', `حذف حجز`);
+                    else if (payload.action === 'restore') addAuditLog('<i class="fa-solid fa-rotate-left"></i> استعادة', `استعادة حجز`);
+                    else if (payload.action === 'permanent_delete') addAuditLog('<i class="fa-solid fa-fire"></i> حذف نهائي', `حذف نهائي`);
+                } else {
+                    showToast("خطأ في الخادم: " + (result.error || 'غير معروف'), 'error');
+                }
+            } else {
+                throw new Error('فشل الاتصال');
+            }
+        } catch (e) {
+            showToast("حدث خطأ أثناء الاتصال بالسحابة: " + e.message, 'error');
+        } finally { 
+            showLoading(false); 
+        }
+    }
+
+    // دالة تطبيق التغيير محلياً (مع نظام النطاق المغلق)
+    function applyLocalChange(payload) {
+        const { action, id, start, days, end, notes, color } = payload;
+        if (action === 'add') {
+            if (!bookings.some(b => b.id === id)) {
+                bookings.push({ id, start, days, end, notes, color });
+            }
+        } else if (action === 'update') {
+            const index = bookings.findIndex(b => b.id === id);
+            if (index !== -1) {
+                bookings[index] = { ...bookings[index], start, days, end, notes, color };
+            }
+        } else if (action === 'delete') {
+            const index = bookings.findIndex(b => b.id === id);
+            if (index !== -1) {
+                const deleted = bookings.splice(index, 1)[0];
+                if (!trashedBookings.some(b => b.id === id)) {
+                    trashedBookings.push({ ...deleted, deleted: true });
+                }
+            }
+        } else if (action === 'restore') {
+            const index = trashedBookings.findIndex(b => b.id === id);
+            if (index !== -1) {
+                const restored = trashedBookings.splice(index, 1)[0];
+                if (!bookings.some(b => b.id === id)) {
+                    bookings.push({ ...restored, deleted: false });
+                }
+            }
+        } else if (action === 'permanent_delete') {
+            const index = trashedBookings.findIndex(b => b.id === id);
+            if (index !== -1) {
+                trashedBookings.splice(index, 1);
+            }
+        }
+        localStorage.setItem('abdul_radi_backup', JSON.stringify([...bookings, ...trashedBookings]));
+        localStorage.setItem('abdul_radi_trash', JSON.stringify(trashedBookings));
+    }
+
+    // دالة التحقق من التعارض (نطاق مغلق)
+    function checkConflict(start, end, excludeId = null) {
+        return bookings.filter(b => {
+            if (excludeId && b.id === excludeId) return false;
+            // start <= b.end && end >= b.start
+            return start <= b.end && end >= b.start;
+        });
+    }
+
+    function renderTable(){
+        let tbody = document.getElementById('bookingsTableBody');
+        tbody.innerHTML = '';
+        const filtered = bookings.filter(b => {
+            if (!searchTerm) return true;
+            const p = parseNotes(b.notes, b);
+            return (p.name || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+                   (p.phone || '').includes(searchTerm);
+        });
+        [...filtered].sort((a,b)=>a.start.localeCompare(b.start)).forEach(b=>{
+            const p = parseNotes(b.notes, b);
+            const tr = tbody.insertRow();
+            tr.innerHTML = `
+                <td>${p.name || 'غير محدد'}</td>
+                <td>${p.phone || '-'}</td>
+                <td>${formatDateArabic(b.start)}</td>
+                <td>${b.days}</td>
+                <td>${formatDateArabic(b.end)}</td>
+                <td>${p.total || 0}</td>
+                <td>${p.paid || 0}</td>
+                <td>${p.text || '-'}</td>
+                <td><span class="color-badge" style="background:${b.color}"></span></td>
+                <td>
+                    <button class="btn-edit" data-action="edit" data-id="${b.id}">تعديل</button>
+                    <button class="btn-delete" data-action="delete" data-id="${b.id}">حذف</button>
+                </td>
+            `;
+        });
+        localStorage.setItem('abdul_radi_backup', JSON.stringify([...bookings, ...trashedBookings]));
+        updateDashboard();
+        updateAlerts();
+    }
+
+    function updateDashboard() {
+        const today = new Date();
+        today.setHours(0,0,0,0);
+        const endDate = new Date(today);
+        endDate.setDate(endDate.getDate() + 98);
+        let totalBookedDays = 0;
+        let totalRevenue = 0;
+        bookings.forEach(b => {
+            const start = new Date(b.start + 'T00:00:00');
+            const end = new Date(b.end + 'T00:00:00');
+            // نطاق مغلق: نحسب الأيام المشتركة بين الفترتين
+            const overlapStart = start < today ? today : start;
+            const overlapEnd = end > endDate ? endDate : end;
+            if (overlapStart <= overlapEnd) {
+                const overlapDays = Math.floor((overlapEnd - overlapStart) / (1000*60*60*24)) + 1;
+                totalBookedDays += overlapDays;
+                const totalBookingDays = Math.floor((end - start) / (1000*60*60*24)) + 1;
+                if (totalBookingDays > 0) {
+                    const ratio = overlapDays / totalBookingDays;
+                    totalRevenue += getTotalAmount(b) * ratio;
+                }
+            }
+        });
+        const available = Math.max(0, 98 - totalBookedDays);
+        const occupancy = 98 > 0 ? Math.round((totalBookedDays / 98) * 100) : 0;
+        document.getElementById('statBooked').innerText = totalBookedDays;
+        document.getElementById('statAvailable').innerText = available;
+        document.getElementById('statOccupancy').innerText = occupancy + '%';
+        document.getElementById('statRevenue').innerText = Math.round(totalRevenue).toLocaleString();
+    }
+
+    function updateAlerts() {
+        const today = new Date();
+        today.setHours(0,0,0,0);
+        const alerts = [];
+        bookings.forEach(b => {
+            const start = new Date(b.start + 'T00:00:00');
+            const end = new Date(b.end + 'T00:00:00');
+            const diffStart = Math.ceil((start - today) / (1000*60*60*24));
+            const diffEnd = Math.ceil((end - today) / (1000*60*60*24));
+            const name = getCustomerName(b);
+            if (diffStart >= 0 && diffStart <= 3) {
+                alerts.push({ type: 'danger', text: `<i class="fa-solid fa-triangle-exclamation"></i> ${name} خلال ${diffStart} يوم` });
+            }
+            if (diffEnd === 0 || diffEnd === 1) {
+                alerts.push({ type: 'warning', text: `<i class="fa-solid fa-clock"></i> ${name} ينتهي اليوم/غداً` });
+            }
+            if (diffStart > 3 && diffStart <= 7) {
+                alerts.push({ type: 'info', text: `<i class="fa-solid fa-circle-info"></i> ${name} بعد ${diffStart} يوم` });
+            }
+        });
+        const container = document.getElementById('alertsList');
+        if (alerts.length === 0) {
+            container.innerHTML = '<span style="opacity:0.6;"><i class="fa-solid fa-circle-check"></i> كل شيء هادئ</span>';
+        } else {
+            container.innerHTML = alerts.map(a => `<span class="alert-badge ${a.type}">${a.text}</span>`).join('');
+        }
+    }
+
+    function renderTimeline() {
+        const container = document.getElementById('timelineGridContainer');
+        container.innerHTML = '';
+        const today = new Date();
+        today.setHours(0,0,0,0);
+        const todayStr = formatDateLocal(today);
+        let startFriday = new Date(today);
+        while (startFriday.getDay() !== 5) startFriday.setDate(startFriday.getDate() - 1);
+        let currentWeekStart = new Date(startFriday);
+
+        for (let w = 0; w < 14; w++) {
+            let row = document.createElement('div');
+            row.className = 'timeline-row';
+            for (let i = 0; i < 7; i++) {
+                let dateStr = formatDateLocal(currentWeekStart);
+                let mm = currentWeekStart.getMonth() + 1;
+                let dayNum = currentWeekStart.getDate();
+                let cell = document.createElement('div');
+                let isPast = dateStr < todayStr;
+                let circleColor = monthCircleColors[mm] || "#34495E";
+
+                if (isPast) {
+                    cell.className = 'day-cell out-of-bounds';
+                    cell.innerHTML = `<div class="date-display-wrapper"><span class="day-number">${dayNum}</span><span class="month-circle" style="background:${circleColor}; opacity:0.4;">${mm}</span></div>`;
+                } else {
+                    let {color, fullNote, bookingData} = getDayInfoWithData(dateStr);
+                    let isFriday = currentWeekStart.getDay() === 5;
+                    let cls = 'day-cell';
+                    if(color) cls += ' booked';
+                    if(isFriday && !color) cls += ' friday-highlight';
+                    if(dateStr === todayStr) cls += ' current-date-highlight';
+                    cell.className = cls;
+                    if(color) cell.style.backgroundColor = color;
+
+                    const p = fullNote ? parseNotes(fullNote) : { name: '' };
+                    const icon = color ? '🔑' : '✅';
+                    const nameDisplay = color ? (p.name || 'محجوز') : '';
+
+                    let innerHtml = `<div class="date-display-wrapper">
+                                        <span class="day-number">${dayNum}</span>
+                                        <span class="month-circle" style="background:${circleColor};">${mm}</span>
+                                     </div>
+                                     <div class="day-name">${currentWeekStart.toLocaleDateString('ar-EG', {weekday:'short'})}</div>
+                                     <div class="icon-status">${icon}</div>`;
+                    if(color) {
+                        innerHtml += `<div class="booking-note">${nameDisplay}</div>`;
+                        cell.dataset.booking = JSON.stringify(bookingData || {});
+                    }
+                    cell.innerHTML = innerHtml;
+                }
+                row.appendChild(cell);
+                currentWeekStart.setDate(currentWeekStart.getDate() + 1);
+            }
+            container.appendChild(row);
+        }
+
+        container.onclick = function(e) {
+            const cell = e.target.closest('.day-cell.booked');
+            if (!cell) return;
+            showTooltipForCell(cell, e);
+        };
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // FIX #4: المقارنة بالنطاق المغلق مع تواريخ مضمونة YYYY-MM-DD
+    // ═══════════════════════════════════════════════════════════════
+    function getDayInfoWithData(dateStr){
+        // dateStr هو دائماً YYYY-MM-DD
+        let cover = bookings.filter(b => {
+            const bStart = normalizeDate(b.start);
+            const bEnd = normalizeDate(b.end);
+            return dateStr >= bStart && dateStr <= bEnd;
+        });
+        if(cover.length === 0) return {color:null, note:"", fullNote:"", bookingData:null};
+        let b = cover[0];
+        const p = parseNotes(b.notes, b);
+        return {
+            color: b.color,
+            note: p.name || "محجوز",
+            fullNote: b.notes,
+            bookingData: {
+                name: p.name || 'غير محدد',
+                phone: p.phone || '-',
+                total: p.total || 0,
+                paid: p.paid || 0,
+                start: b.start,
+                end: b.end,
+                notes: p.text || ''
+            }
+        };
+    }
+
+    function showTooltipForCell(cell, e) {
+        const dataStr = cell.dataset.booking;
+        if (!dataStr) return;
+        try {
+            const data = JSON.parse(dataStr);
+            document.getElementById('ttTitle').innerText = data.name || 'غير محدد';
+            document.getElementById('ttTotal').innerText = (data.total || 0).toLocaleString();
+            document.getElementById('ttPaid').innerText = (data.paid || 0).toLocaleString();
+            document.getElementById('ttStart').innerText = formatDateArabic(data.start);
+            document.getElementById('ttEnd').innerText = formatDateArabic(data.end);
+            document.getElementById('ttNotes').innerText = data.notes || '-';
+            tooltip.style.display = 'block';
+            if (isMobile()) {
+                // وسطي الشاشة (CSS)
+            } else {
+                positionTooltipDesktop(e);
+            }
+        } catch {}
+    }
+
+    function positionTooltipDesktop(e) {
+        let x = e.clientX + 15;
+        let y = e.clientY + 15;
+        const tw = tooltip.offsetWidth || 280;
+        const th = tooltip.offsetHeight || 200;
+        if (x + tw > window.innerWidth) x = e.clientX - tw - 15;
+        if (y + th > window.innerHeight) y = e.clientY - th - 15;
+        if (x < 10) x = 10;
+        if (y < 10) y = 10;
+        tooltip.style.left = x + 'px';
+        tooltip.style.top = y + 'px';
+        tooltip.style.transform = 'none';
+    }
+
+    function formatDateArabic(s) {
+        if(!s) return '-';
+        // FIX: استخراج YYYY-MM-DD من أي صيغة (ISO أو نصية)
+        const normalized = normalizeDate(s);
+        let parts = normalized.split('-');
+        if(parts.length !== 3) return s;
+        return `${parseInt(parts[2])} ${ARABIC_MONTHS[parseInt(parts[1])-1]}`;
+    }
+
+        // ═══════════════════════════════════════════════════════════════
+    // دالة مساعدة: إضافة أيام على تاريخ نصي بدون انزياح زمني
+    // ═══════════════════════════════════════════════════════════════
+    function addDaysToDate(dateStr, daysToAdd) {
+        const [y, m, d] = dateStr.split('-').map(Number);
+        const date = new Date(y, m - 1, d);
+        date.setDate(date.getDate() + daysToAdd);
+        return formatDateLocal(date);
+    }
+
+    function handleSubmit(){
+        let day = parseInt(document.getElementById('startDay').value);
+        let month = parseInt(document.getElementById('startMonth').value);
+        let days = parseInt(document.getElementById('daysCount').value);
+        let name = document.getElementById('customerName').value.trim();
+        let phone = document.getElementById('customerPhone').value.trim();
+        let total = parseFloat(document.getElementById('totalAmount').value) || 0;
+        let paid = parseFloat(document.getElementById('paidAmount').value) || 0;
+        let text = document.getElementById('notes').value.trim();
+
+        if(!day || !month || !days) { showToast("يرجى ملء اليوم والشهر والمدة", 'error'); return; }
+        if(days <= 0) { showToast("المدة يجب أن تكون يوماً واحداً على الأقل", 'error'); return; }
+        if(!name) { showToast("يرجى إدخال اسم العميل", 'error'); return; }
+
+        let start = `${CURRENT_YEAR}-${String(month).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+        let end = addDaysToDate(start, days - 1);
+
+        const conflicts = checkConflict(start, end, editBookingId);
+        if (conflicts.length > 0) {
+            const names = conflicts.map(b => getCustomerName(b)).join('، ');
+            if (!confirm(`⚠️ يوجد تعارض مع: ${names}\nمتابعة؟`)) return;
+        }
+
+        const notesObj = { name, phone, total, paid, text };
+        const notesStr = JSON.stringify(notesObj);
+
+        let payload = {};
+        if(editBookingId !== null) {
+            let existing = bookings.find(b => b.id === editBookingId);
+            payload = { action: "update", id: editBookingId, start, days, end, notes: notesStr, color: existing.color };
+            editBookingId = null;
+            document.getElementById('submitBtn').innerHTML = '<i class="fa-solid fa-plus"></i><span>إضافة</span>';
+            document.getElementById('submitBtn').className = "btn-add";
+            sendDataToSheets(payload, "جاري تحديث الحجز...");
+        } else {
+            let id = (typeof crypto !== 'undefined' && crypto.randomUUID) ? crypto.randomUUID() : "ID-" + Date.now() + "-" + Math.random().toString(36).substr(2,9);
+            let color = getColorForBooking(id);
+            payload = { action: "add", id, start, days, end, notes: notesStr, color };
+            sendDataToSheets(payload, "جاري إضافة الحجز...");
+        }
+        ['startDay','daysCount','customerName','customerPhone','totalAmount','paidAmount','notes'].forEach(id => document.getElementById(id).value = '');
+        document.getElementById('startMonth').value = '';
+    }
+
+    window.startEditBooking = function(id) {
+        let b = bookings.find(b => b.id === id);
+        if(!b) return;
+        const p = parseNotes(b.notes, b);
+        let parts = b.start.split('-');
+        document.getElementById('startDay').value = parseInt(parts[2]);
+        document.getElementById('startMonth').value = parseInt(parts[1]);
+        document.getElementById('daysCount').value = b.days;
+        document.getElementById('customerName').value = p.name || '';
+        document.getElementById('customerPhone').value = p.phone || '';
+        document.getElementById('totalAmount').value = p.total || '';
+        document.getElementById('paidAmount').value = p.paid || '';
+        document.getElementById('notes').value = p.text || '';
+        editBookingId = id;
+        document.getElementById('submitBtn').innerHTML = '<i class="fa-solid fa-pen"></i><span>تعديل</span>';
+        document.getElementById('submitBtn').className = "btn-update";
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.deleteBooking = function(id) {
+        if(confirm("حذف هذا الحجز إلى سلة المحذوفات؟")) {
+            sendDataToSheets({ action: "delete", id }, "جاري الحذف...");
+        }
+    }
+
+    window.restoreBooking = function(id) {
+        sendDataToSheets({ action: "restore", id }, "جاري الاستعادة...");
+    }
+
+    window.permanentDeleteBooking = function(id) {
+        if(confirm("⚠️ حذف نهائي لا يمكن التراجع عنه. متأكد؟")) {
+            sendDataToSheets({ action: "permanent_delete", id }, "جاري الحذف النهائي...");
+        }
+    }
+
+    window.openTrash = function() {
+        renderTrash();
+        document.getElementById('trashModal').style.display = 'flex';
+    }
+
+    function renderTrash() {
+        const container = document.getElementById('trashList');
+        if (trashedBookings.length === 0) {
+            container.innerHTML = '<div style="opacity:0.6; text-align:center; padding:20px;">السلة فارغة</div>';
+            return;
+        }
+        container.innerHTML = trashedBookings.map(b => {
+            const p = parseNotes(b.notes);
+            return `<div class="trash-item">
+                <div>
+                    <strong>${p.name || 'غير محدد'}</strong><br>
+                    <small>${formatDateArabic(b.start)} - ${b.days} يوم</small>
+                </div>
+                <div style="display:flex; gap:6px; flex-wrap:wrap;">
+                    <button class="btn-restore" onclick="restoreBooking('${b.id}')"><i class="fa-solid fa-rotate-left"></i> استعادة</button>
+                    <button class="btn-permanent-delete" onclick="permanentDeleteBooking('${b.id}')"><i class="fa-solid fa-fire"></i> نهائي</button>
+                </div>
+            </div>`;
+        }).join('');
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // دالة مشتركة لتوليد صورة التقويم (بدون جدول الحجوزات) تُستخدم
+    // في كل من الحفظ العادي والإرسال عبر واتساب
+    // ═══════════════════════════════════════════════════════════════
+    async function generateBookingCanvas() {
+        const area = document.getElementById('exportArea');
+        const wrapper = document.createElement('div');
+        wrapper.className = 'timestamp-wrapper';
+        wrapper.innerHTML = `<div class="image-timestamp">📸 شقة عبد الراضي - ${new Date().toLocaleString('ar-EG')}</div>`;
+        document.getElementById('imageTimestampContainer').appendChild(wrapper);
+
+        // إخفاء جدول الحجوزات مؤقتاً أثناء التصوير - الصورة يجب أن تُظهر التقويم بالحجوزات فقط دون الجدول
+        const tableWrapperEl = area.querySelector('.table-wrapper');
+        const tableWrapperOriginalDisplay = tableWrapperEl ? tableWrapperEl.style.display : null;
+        if (tableWrapperEl) tableWrapperEl.style.display = 'none';
+
+        const elementsWithBlur = area.querySelectorAll('[style*="backdrop-filter"]');
+        const originalStyles = [];
+        elementsWithBlur.forEach(el => {
+            originalStyles.push({ el, style: el.style.backdropFilter });
+            el.style.backdropFilter = 'none';
+        });
+
+        try {
+            const canvas = await html2canvas(area, { scale: 2, backgroundColor: '#e9ecef', useCORS: true, logging: false, scrollX: 0, scrollY: -window.scrollY });
+            return canvas;
+        } finally {
+            originalStyles.forEach(({el, style}) => { el.style.backdropFilter = style; });
+            if (tableWrapperEl) tableWrapperEl.style.display = tableWrapperOriginalDisplay || '';
+            document.getElementById('imageTimestampContainer').innerHTML = '';
+        }
+    }
+
+    async function saveAsImage() {
+        const btn = document.getElementById('exportImageBtn');
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i><span>جاري...</span>';
+        btn.disabled = true;
+        try {
+            const canvas = await generateBookingCanvas();
+            let link = document.createElement('a');
+            link.download = `حجوزات_شقة_عبد_الراضي.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+            showToast('تم حفظ الصورة بنجاح', 'success');
+        } catch(e) { showToast('حدث خطأ أثناء حفظ الصورة.', 'error'); }
+        finally {
+            btn.innerHTML = '<i class="fa-solid fa-image"></i><span>صورة</span>';
+            btn.disabled = false;
+        }
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // إرسال صورة التقويم عبر واتساب لرقم محدد
+    // ملاحظة مهمة: واتساب لا يوفر أي طريقة (رسمية أو غير رسمية) لإرفاق
+    // صورة تلقائياً داخل محادثة عبر المتصفح لرقم معيّن دون تدخل المستخدم.
+    // لذلك نعتمد على أفضل طريقتين متاحتين فعلياً:
+    // 1) واجهة المشاركة (Web Share API) على الموبايل: تفتح قائمة المشاركة
+    //    ويختار المستخدم واتساب ثم جهة الاتصال بنفسه (والصورة تكون مرفقة فعلياً).
+    // 2) لو المتصفح لا يدعم مشاركة الملفات (مثلاً على الكمبيوتر): يتم تنزيل
+    //    الصورة تلقائياً ثم فتح محادثة واتساب مع الرقم المطلوب مباشرة،
+    //    ويقوم المستخدم بإرفاق الصورة (التي تم تنزيلها للتو) يدوياً في المحادثة.
+    // ═══════════════════════════════════════════════════════════════
+    async function sendImageToWhatsApp(phoneNumber, btnEl) {
+        const originalHTML = btnEl.innerHTML;
+        btnEl.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i><span>جاري...</span>';
+        btnEl.disabled = true;
+        try {
+            const canvas = await generateBookingCanvas();
+            const fileName = `حجوزات_شقة_عبد_الراضي.png`;
+            const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+            if (!blob) throw new Error("تعذر إنشاء الصورة");
+            const file = new File([blob], fileName, { type: 'image/png' });
+            // نص الرسالة المرسلة فعلياً داخل واتساب — تم الإبقاء على الإيموجي هنا لأنه
+            // نص محادثة عادي (ليس أيقونة واجهة) ويُعرض بشكل طبيعي داخل واتساب نفسه
+            const shareText = 'حجوزات شقة عبد الراضي 📅';
+
+            if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                await navigator.share({ files: [file], title: 'حجوزات شقة عبد الراضي', text: shareText });
+            } else {
+                // تنزيل الصورة تلقائياً أولاً
+                const link = document.createElement('a');
+                link.download = fileName;
+                link.href = URL.createObjectURL(blob);
+                link.click();
+                showToast("تم تنزيل الصورة. سيتم الآن فتح محادثة واتساب - من فضلك أرفق الصورة يدوياً.", 'info');
+                window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(shareText)}`, '_blank');
+            }
+        } catch(e) {
+            if (e && e.name !== 'AbortError') showToast("حدث خطأ أثناء إرسال الصورة عبر واتساب.", 'error');
+        } finally {
+            btnEl.innerHTML = originalHTML;
+            btnEl.disabled = false;
+        }
+    }
+
+    function exportExcel() {
+        if (bookings.length === 0) { showToast("لا توجد حجوزات.", 'error'); return; }
+        try {
+            const data = bookings.map(b => {
+                const p = parseNotes(b.notes, b);
+                return { "العميل": p.name || '', "الهاتف": p.phone || '', "تاريخ البداية": b.start, "المدة": b.days, "تاريخ النهاية": b.end, "الإجمالي": p.total || 0, "المدفوع": p.paid || 0, "الملاحظات": p.text || '' };
+            });
+            const wb = XLSX.utils.book_new();
+            const ws = XLSX.utils.json_to_sheet(data);
+            ws['!cols'] = [{wch:20},{wch:15},{wch:18},{wch:10},{wch:18},{wch:12},{wch:12},{wch:30}];
+            XLSX.utils.book_append_sheet(wb, ws, "الحجوزات");
+            const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+            const blob = new Blob([wbout], {type: 'application/octet-stream'});
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `حجوزات_${formatDateLocal(new Date())}.xlsx`;
+            link.click();
+        } catch(e) { showToast("خطأ في تصدير Excel: " + e.message, 'error'); }
+    }
+
+    function importCSV(file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const lines = e.target.result.split(/\r?\n/).filter(l => l.trim());
+            if(lines.length < 2) { showToast("ملف فارغ أو غير صالح", 'error'); return; }
+            const headers = lines[0].split(';').map(h => h.trim());
+            const expected = ["تاريخ البداية", "عدد الأيام", "تاريخ النهاية", "الملاحظات", "اللون"];
+            const map = {};
+            headers.forEach((h,i) => { const clean = h.replace(/^"|"$/g,'').trim(); map[clean]=i; });
+            const missing = expected.filter(col => !(col in map));
+            if(missing.length) { showToast(`أعمدة مفقودة: ${missing.join(', ')}`, 'error'); return; }
+
+            const toAdd = [];
+            lines.slice(1).forEach(line => {
+                const row = line.split(';');
+                if(row.length < headers.length) return;
+                const start = row[map["تاريخ البداية"]].replace(/^"|"$/g,'').trim();
+                const days = parseInt(row[map["عدد الأيام"]].replace(/^"|"$/g,'').trim());
+                const end = row[map["تاريخ النهاية"]].replace(/^"|"$/g,'').trim();
+                const notes = row[map["الملاحظات"]].replace(/^"|"$/g,'').trim();
+                const color = row[map["اللون"]].replace(/^"|"$/g,'').trim();
+                if(!start || isNaN(days)) return;
+                let finalNotes = notes;
+                try { JSON.parse(notes); } catch { 
+                    finalNotes = JSON.stringify({ name: notes, phone: '', total: 0, paid: 0, text: notes });
+                }
+                const id = (typeof crypto !== 'undefined' && crypto.randomUUID) ? crypto.randomUUID() : "ID-" + Date.now() + "-" + Math.random().toString(36).substr(2,9);
+                toAdd.push({ id, start, days, end, notes: finalNotes, color });
+            });
+            if(!toAdd.length) { showToast("لا توجد بيانات صالحة للاستيراد.", 'error'); return; }
+            if(confirm(`سيتم استيراد ${toAdd.length} حجز. متابعة؟`)) {
+                let completed = 0;
+                showLoading(true, `جاري استيراد... (0/${toAdd.length})`);
+                toAdd.forEach((b, idx) => {
+                    setTimeout(() => {
+                        fetch(SCRIPT_URL, { method:"POST", headers:{"Content-Type":"text/plain"}, body:JSON.stringify({action:"add", ...b}) })
+                        .finally(() => {
+                            completed++;
+                            document.getElementById('loadingText').innerText = `جاري استيراد... (${completed}/${toAdd.length})`;
+                            if(completed === toAdd.length) {
+                                setTimeout(async () => {
+                                    await fetchBookingsFromSheets();
+                                    addAuditLog('<i class="fa-solid fa-file-csv"></i> استيراد', `تم استيراد ${toAdd.length} حجز من CSV`);
+                                    showToast(`تم استيراد ${toAdd.length} حجز بنجاح`, 'success');
+                                    showLoading(false);
+                                }, 1000);
+                            }
+                        });
+                    }, idx * 400);
+                });
+            }
+        };
+        reader.readAsText(file, "UTF-8");
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // إصلاح جماعي: إعادة حساب تاريخ النهاية لكل الحجوزات القديمة
+    // (بعض الحجوزات القديمة اتسجلت قبل تصحيح معادلة الأيام
+    // فبقى تاريخ نهايتها المخزَّن في الشيت غلط بيوم واحد زيادة)
+    // ═══════════════════════════════════════════════════════════════
+    async function fixAllEndDates() {
+        const wrong = bookings.filter(b => {
+            const correctEnd = addDaysToDate(normalizeDate(b.start), (parseInt(b.days) || 1) - 1);
+            return correctEnd !== normalizeDate(b.end);
+        });
+
+        if (wrong.length === 0) {
+            showToast("كل تواريخ النهاية سليمة، لا يوجد ما يحتاج إصلاح.", 'success');
+            return;
+        }
+
+        const preview = wrong.slice(0, 8).map(b => {
+            const correctEnd = addDaysToDate(normalizeDate(b.start), (parseInt(b.days) || 1) - 1);
+            return `${getCustomerName(b)}: ${b.end} ⬅ ${correctEnd}`;
+        }).join('\n');
+
+        if (!confirm(`تم العثور على ${wrong.length} حجز بتاريخ نهاية غير صحيح:\n\n${preview}${wrong.length > 8 ? '\n...' : ''}\n\nهل تريد تصحيحها الآن؟`)) return;
+
+        showLoading(true, `جاري إصلاح التواريخ... (0/${wrong.length})`);
+        let completed = 0;
+        for (const b of wrong) {
+            const correctEnd = addDaysToDate(normalizeDate(b.start), (parseInt(b.days) || 1) - 1);
+            const payload = { action: "update", id: b.id, start: normalizeDate(b.start), days: b.days, end: correctEnd, notes: b.notes, color: b.color };
+            try {
+                await fetch(SCRIPT_URL, { method: "POST", headers: { "Content-Type": "text/plain" }, body: JSON.stringify(payload) });
+            } catch (e) { /* تجاهل ونكمل الباقي */ }
+            completed++;
+            document.getElementById('loadingText').innerText = `جاري إصلاح التواريخ... (${completed}/${wrong.length})`;
+        }
+        await fetchBookingsFromSheets();
+        addAuditLog('<i class="fa-solid fa-wrench"></i> إصلاح', `تم تصحيح تاريخ نهاية ${wrong.length} حجز`);
+        showToast(`تم تصحيح ${wrong.length} حجز بنجاح`, 'success');
+        showLoading(false);
+    }
+
+    function toggleDarkMode() {
+        document.body.classList.toggle('dark-mode');
+        const btn = document.getElementById('darkModeToggle');
+        const isDark = document.body.classList.contains('dark-mode');
+        btn.innerHTML = isDark ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
+        btn.title = isDark ? 'الوضع النهاري' : 'الوضع الليلي';
+    }
+
+    function renderAll() { renderTable(); renderTimeline(); renderAuditLog(); }
+
+    document.getElementById('submitBtn').addEventListener('click', handleSubmit);
+    document.getElementById('exportImageBtn').addEventListener('click', saveAsImage);
+    document.getElementById('whatsapp1Btn').addEventListener('click', function() { sendImageToWhatsApp('201111196731', this); });
+    document.getElementById('whatsapp2Btn').addEventListener('click', function() { sendImageToWhatsApp('201001415456', this); });
+    document.getElementById('exportExcelBtn').addEventListener('click', exportExcel);
+    document.getElementById('importCsvBtn').addEventListener('click', () => document.getElementById('csvFileInput').click());
+    document.getElementById('csvFileInput').addEventListener('change', function(e) { if(this.files?.[0]) importCSV(this.files[0]); this.value=''; });
+    document.getElementById('darkModeToggle').addEventListener('click', toggleDarkMode);
+    document.getElementById('trashBtn').addEventListener('click', openTrash);
+    document.getElementById('fixDatesBtn').addEventListener('click', fixAllEndDates);
+    document.getElementById('searchInput').addEventListener('input', function(e) {
+        searchTerm = e.target.value;
+        renderTable();
+    });
+
+    document.getElementById('bookingsTableBody').addEventListener('click', function(e) {
+        const btn = e.target.closest('button');
+        if (!btn) return;
+        const action = btn.dataset.action;
+        const id = btn.dataset.id;
+        if (action === 'edit') startEditBooking(id);
+        else if (action === 'delete') deleteBooking(id);
+    });
+
+    document.getElementById('startMonth').addEventListener('change', function() {
+        let m = parseInt(this.value);
+        if(m) document.getElementById('startDay').max = new Date(CURRENT_YEAR, m, 0).getDate();
+    });
+
+    document.addEventListener('click', function(e) {
+        if (isMobile() && tooltip.style.display === 'block') {
+            if (!tooltip.contains(e.target) && !e.target.closest('.day-cell.booked')) {
+                tooltip.style.display = 'none';
+            }
+        }
+    });
+
+    window.onload = () => fetchBookingsFromSheets();
+})();
+</script>
+
+<!-- تسجيل الـ Service Worker لتفعيل التثبيت كتطبيق وفتحه Offline -->
+<script>
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('sw.js').catch(() => {
+                // فشل التسجيل (مثلاً عند الفتح من ملف محلي بدون سيرفر) — لا يوقف عمل التطبيق
+            });
+        });
+    }
+</script>
+</body>
+</html>
