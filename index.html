@@ -5,14 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>شقة عبد الراضي - نظام الإدارة المتكامل</title>
 
-    <link rel="manifest" href="manifest.json">
+    <!-- Using Data URI for favicon to prevent 404 and CORS errors on local file systems -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏠</text></svg>">
     <meta name="theme-color" content="#0067C0">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="شقة عبد الراضي">
-    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-    <link rel="icon" href="icons/icon-192.png" type="image/png">
 
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -22,7 +21,6 @@
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
         :root {
-            /* Windows 11 / iPadOS Hybrid Palette */
             --win-blue: #0067C0;
             --win-blue-light: #2A9DF4;
             --accent-purple: #8B5CF6;
@@ -30,7 +28,7 @@
             --accent-coral: #F43F5E;
             --accent-gold: #F59E0B;
             
-            --bg-body: #f3f4f6; /* Windows 11 desktop gray */
+            --bg-body: #f3f4f6;
             --bg-container: rgba(255, 255, 255, 0.65);
             --bg-container-solid: rgba(255, 255, 255, 0.9);
             --text-color: #1f2937;
@@ -48,14 +46,14 @@
             --table-header: rgba(255, 255, 255, 0.8);
             
             --radius-sm: 8px;
-            --radius-md: 16px; /* iPadOS style rounded corners */
+            --radius-md: 16px;
             --radius-lg: 24px;
             
             --font-ui: -apple-system, BlinkMacSystemFont, "Segoe UI Variable", "Segoe UI", "Cairo", Tahoma, Arial, sans-serif;
             --font-mono: 'JetBrains Mono', 'SF Mono', 'Courier New', monospace;
         }
         body.dark-mode {
-            --bg-body: #0a0a0a; /* Windows 11 Dark Desktop */
+            --bg-body: #0a0a0a;
             --bg-container: rgba(30, 30, 30, 0.7);
             --bg-container-solid: rgba(30, 30, 30, 0.95);
             --text-color: #f3f4f6;
@@ -74,7 +72,6 @@
         body {
             font-family: var(--font-ui);
             background-color: var(--bg-body);
-            /* iPadOS / Windows 11 Abstract Desktop Background */
             background-image: 
                 radial-gradient(at 0% 0%, rgba(0, 103, 192, 0.15) 0px, transparent 50%),
                 radial-gradient(at 90% 10%, rgba(139, 92, 246, 0.15) 0px, transparent 50%),
@@ -89,7 +86,6 @@
             outline: 2px solid var(--win-blue); outline-offset: 2px;
         }
 
-        /* Main Container - Fluent Design / Mica Material */
         .container {
             max-width: 1320px; margin: 0 auto; background: var(--bg-container); padding: 24px;
             border-radius: var(--radius-lg); backdrop-filter: blur(40px) saturate(180%); -webkit-backdrop-filter: blur(40px) saturate(180%);
@@ -97,7 +93,6 @@
             transition: background 0.4s, border 0.3s;
         }
 
-        /* Clock - iPadOS Widget Style */
         .digital-clock {
             font-family: var(--font-mono); text-align: center; padding: 20px 24px; margin-bottom: 20px;
             border-radius: var(--radius-lg); background: var(--card-bg); backdrop-filter: blur(20px);
@@ -114,7 +109,6 @@
         }
         .clock-ampm { font-size: 1.2rem; color: var(--text-muted); font-weight: 500; margin-right: 4px; }
 
-        /* Top Bar - Windows 11 Ribbon Style */
         .top-bar {
             display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px;
             background: var(--card-bg); backdrop-filter: blur(20px); border: 1px solid var(--border-color);
@@ -129,9 +123,8 @@
         body.dark-mode .file-status { background: rgba(20, 184, 166, 0.15); }
         .toolbar-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
         
-        /* Fluent Buttons */
         .btn-pill {
-            border: 1px solid transparent; cursor: pointer; height: 40px; border-radius: 8px; /* Win11 radius */
+            border: 1px solid transparent; cursor: pointer; height: 40px; border-radius: 8px; 
             display: inline-flex; align-items: center; justify-content: center; gap: 8px;
             font-weight: 600; font-size: 13.5px; padding: 0 16px;
             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: none; color: #fff; touch-action: manipulation; white-space: nowrap;
@@ -151,7 +144,6 @@
         .btn-pill.tone-ghost:hover { background: var(--cell-bg); }
         body.dark-mode .btn-pill.tone-ghost { color: #fff; border-color: var(--border-color); }
 
-        /* Dropdown Menu - Win11 Style */
         .tools-menu { position: relative; }
         .tools-dropdown {
             position: absolute; top: calc(100% + 8px); left: 0; z-index: 500;
@@ -173,7 +165,6 @@
         body.dark-mode .tools-dropdown button i { color: var(--win-blue-light); }
         .tools-dropdown .divider { height: 1px; background: var(--border-color); margin: 6px 8px; }
 
-        /* Dashboard Stats - iPadOS Widgets */
         .dashboard-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 20px; }
         .stat-card {
             background: var(--card-bg); backdrop-filter: blur(20px); border: 1px solid var(--border-color);
@@ -196,7 +187,6 @@
         .stat-card.purple { background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), transparent); } .stat-card.purple .num { color: var(--accent-purple); } .stat-card.purple i.stat-icon { background: rgba(139, 92, 246, .1); color: var(--accent-purple); }
         .stat-card.orange { background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), transparent); } .stat-card.orange .num { color: var(--accent-gold); } .stat-card.orange i.stat-icon { background: rgba(245, 158, 11, .1); color: var(--accent-gold); }
 
-        /* Alerts - iPadOS Banners */
         .alerts-container {
             display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; padding: 12px 16px;
             background: var(--card-bg); border-radius: var(--radius-md); border: 1px solid var(--border-color);
@@ -211,7 +201,6 @@
         .alert-badge.warning { background: rgba(245, 158, 11, .1); color: var(--accent-gold); }
         .alert-badge.info { background: rgba(0, 103, 192, .1); color: var(--win-blue); }
 
-        /* Form - Win11 Settings Style */
         .form-group {
             display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 20px;
             background: var(--card-bg); backdrop-filter: blur(20px); padding: 24px;
@@ -247,7 +236,6 @@
         .btn-add:hover, .btn-update:hover { box-shadow: var(--shadow-hover); transform: translateY(-1px); }
         .btn-add:active, .btn-update:active { transform: translateY(0); }
 
-        /* Search Bar - iPadOS Style */
         .search-bar {
             display: flex; align-items: center; gap: 8px; margin-bottom: 16px;
             background: var(--card-bg); padding: 6px; border-radius: 12px; border: 1px solid var(--border-color); position: relative;
@@ -256,7 +244,6 @@
         .search-bar input { flex: 1; padding: 10px 44px 10px 16px; border-radius: 8px; border: none; background: transparent; font-size: 15px; }
         .search-bar input:focus { box-shadow: none; background: var(--cell-bg); }
 
-        /* Table - Win11 File Explorer Style */
         .table-wrapper {
             overflow-x: auto; margin-bottom: 20px; border-radius: var(--radius-md);
             border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); -webkit-overflow-scrolling: touch;
@@ -282,13 +269,12 @@
         .btn-edit:hover, .btn-delete:hover { box-shadow: var(--shadow-sm); filter: brightness(1.05); }
         .color-badge { display: inline-block; width: 16px; height: 16px; border-radius: 50%; box-shadow: 0 1px 3px rgba(0,0,0,0.2); border: 2px solid var(--card-solid); }
 
-        /* Timeline Grid - iPadOS Springboard Style */
         .timeline-grid { display: flex; flex-direction: column; margin-top: 16px; gap: 6px; }
         .timeline-row { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
         .day-cell {
             border: 1px solid var(--cell-border); background: var(--card-bg); backdrop-filter: blur(10px); border-radius: 16px;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            aspect-ratio: 1/1; transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease; /* iOS Spring */
+            aspect-ratio: 1/1; transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease; 
             font-size: 10px; position: relative; z-index: 1; text-align: center; padding: 4px; color: var(--text-color);
             contain: layout style paint; cursor: pointer; touch-action: manipulation;
         }
@@ -318,7 +304,6 @@
         }
         .day-cell.current-date-highlight .day-number, .day-cell.current-date-highlight .day-name { color: #fff !important; }
 
-        /* Tooltip - iPadOS Context Menu */
         .booking-tooltip {
             position: fixed; background: var(--bg-container-solid); backdrop-filter: blur(40px) saturate(180%); -webkit-backdrop-filter: blur(40px) saturate(180%);
             border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 18px 20px;
@@ -336,7 +321,6 @@
             width: 28px; height: 28px; border-radius: 8px; cursor: pointer; font-size: 14px; display: none; align-items: center; justify-content: center;
         }
 
-        /* Audit Log & Modals */
         .audit-log { margin-top: 20px; padding: 16px 20px; background: var(--card-bg); border-radius: var(--radius-md); border: 1px solid var(--border-color); }
         .audit-log h3 { font-size: 16px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; color: var(--text-color); }
         .audit-log .log-item { font-size: 13px; padding: 8px 0; border-bottom: 1px solid var(--border-color); display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
@@ -347,7 +331,6 @@
         .image-timestamp { font-size: 14px; font-weight: 600; text-align: center; background: var(--card-solid); padding: 8px 16px; margin-bottom: 12px; border-radius: 12px; color: var(--text-color); display: inline-block; box-shadow: var(--shadow-sm); }
         .timestamp-wrapper { text-align: center; margin-bottom: 12px; }
 
-        /* Overlay & Spinner */
         #loadingOverlay { position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.4); backdrop-filter: blur(8px); display:flex; flex-direction:column; gap:16px; justify-content:center; align-items:center; z-index:9999; font-size:18px; font-weight:600; color:#fff; font-family: var(--font-ui); }
         .spinner { width: 48px; height: 48px; border: 4px solid rgba(255,255,255,0.2); border-top: 4px solid var(--win-blue); border-radius: 50%; animation: spin .8s linear infinite; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
@@ -400,7 +383,18 @@
         }
         .trash-close-btn:hover { background: var(--border-color); }
 
-        /* Custom Scrollbar - Win11 Style */
+        /* ===== Holidays & Exam Periods ===== */
+        .day-cell.event-official { border: 2px solid var(--accent-gold) !important; background: rgba(245, 158, 11, 0.12); }
+        .day-cell.event-eid { border: 2px solid var(--accent-teal) !important; background: rgba(20, 184, 166, 0.14); }
+        .day-cell.event-exam { border: 2px solid var(--accent-coral) !important; background: rgba(244, 63, 94, 0.12); }
+        .day-cell .event-label { font-size: 8px; font-weight: 700; line-height: 1.15; text-align: center; color: var(--text-color); margin-top: 2px; padding: 0 2px; }
+        .calendar-legend { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 12px 0 4px; font-size: 12px; color: var(--text-muted); }
+        .calendar-legend span { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; }
+        .calendar-legend i.dot { width: 12px; height: 12px; border-radius: 4px; display: inline-block; border: 2px solid; }
+        .dot-official { border-color: var(--accent-gold); background: rgba(245, 158, 11, 0.2); }
+        .dot-eid { border-color: var(--accent-teal); background: rgba(20, 184, 166, 0.2); }
+        .dot-exam { border-color: var(--accent-coral); background: rgba(244, 63, 94, 0.2); }
+
         ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.2); border-radius: 10px; }
@@ -534,7 +528,12 @@
                 <tbody id="bookingsTableBody"></tbody>
             </table>
         </div>
-        <div class="timeline-grid" id="timelineGridContainer"></div>
+        <div class="calendar-legend">
+        <span><i class="dot dot-official"></i>عطلة رسمية</span>
+        <span><i class="dot dot-eid"></i>عيد / مناسبة دينية</span>
+        <span><i class="dot dot-exam"></i>امتحانات الثانوية العامة</span>
+    </div>
+    <div class="timeline-grid" id="timelineGridContainer"></div>
     </div>
 
     <div class="audit-log" id="auditLog">
@@ -544,7 +543,7 @@
 </div>
 
 <div class="booking-tooltip" id="bookingTooltip">
-    <button class="tt-close" onclick="document.getElementById('bookingTooltip').style.display='none'"><i class="fa-solid fa-xmark"></i></button>
+    <button class="tt-close" id="ttCloseBtn"><i class="fa-solid fa-xmark"></i></button>
     <div class="tt-title" id="ttTitle">اسم العميل</div>
     <div class="tt-row"><span class="tt-label"><i class="fa-solid fa-sack-dollar"></i>الإجمالي</span><span class="tt-value" id="ttTotal">0</span></div>
     <div class="tt-row"><span class="tt-label"><i class="fa-solid fa-money-bill-wave"></i>المدفوع</span><span class="tt-value" id="ttPaid">0</span></div>
@@ -557,7 +556,7 @@
     <div class="trash-modal-content">
         <h3><i class="fa-solid fa-trash-can"></i>سلة المحذوفات</h3>
         <div id="trashList"></div>
-        <button class="trash-close-btn" onclick="document.getElementById('trashModal').style.display='none'"><i class="fa-solid fa-xmark"></i>إغلاق</button>
+        <button class="trash-close-btn" id="trashCloseBtn"><i class="fa-solid fa-xmark"></i>إغلاق</button>
     </div>
 </div>
 
@@ -565,21 +564,26 @@
     <div class="trash-modal-content">
         <h3 style="color: var(--win-blue);"><i class="fa-solid fa-box-archive"></i> الحجوزات المؤرشفة (أقدم من شهر)</h3>
         <div id="archiveList" style="max-height: 60vh; overflow-y: auto;"></div>
-        <button class="trash-close-btn" onclick="document.getElementById('archiveModal').style.display='none'"><i class="fa-solid fa-xmark"></i> إغلاق</button>
+        <button class="trash-close-btn" id="archiveCloseBtn"><i class="fa-solid fa-xmark"></i> إغلاق</button>
     </div>
 </div>
 
 <script>
 (function(){
-    // 1. Safe Storage Fallback for sandbox environments
+    // 1. Safe Storage Fallback for sandbox/local file environments
     const safeStorage = {
         _data: {},
         getItem: function(key) { return this._data[key] || null; },
-        setItem: function(key, value) { this._data[key] = value; }
+        setItem: function(key, value) { this._data[key] = value; },
+        removeItem: function(key) { delete this._data[key]; }
     };
     let ls;
     try {
         ls = window.localStorage || safeStorage;
+        const testKey = '__test__';
+        ls.setItem(testKey, '1');
+        ls.getItem(testKey);
+        ls.removeItem(testKey);
     } catch (e) {
         ls = safeStorage;
     }
@@ -592,6 +596,188 @@
     const bookingPalette = ["#FF6B6B", "#4ECDC4", "#FFD93D", "#6C5CE7", "#00CEC9", "#FF9F43", "#E84393", "#2ECC71", "#0984E3", "#FD79A8"];
 
     const ARCHIVE_AFTER_MONTHS = 1;
+
+    // ===================== التقويم التلقائي =====================
+    // الأعياد الهجرية تُحسب تلقائياً من التقويم الهجري (أم القرى).
+    // المناسبات الوطنية الثابتة وعيد القيامة تُحسب تلقائياً.
+    // امتحانات الثانوية (العامة والأزهرية) تُحدَّث هنا أو من رابط JSON خارجي.
+    const CALENDAR_CONFIG = {
+        hijriAdjustDays: 0,        // 0 = حساب أم القرى. اجعله 1 إذا أعلنت دار الإفتاء يوماً متأخراً
+        eidFitrHolidayDays: 4,     // عدد أيام عطلة عيد الفطر ابتداءً من يوم العيد
+        eidAdhaHolidayDays: 5,     // عدد أيام عطلة عيد الأضحى ابتداءً من يوم العيد
+        examsThanaweya: {
+            2026: { from: "2026-06-21", to: "2026-07-16" },
+            2027: { from: "2027-06-26", to: "2027-07-21" }
+        },
+        examsAzhar: {
+            2026: null,
+            2027: null             // ضع { from: "YYYY-MM-DD", to: "YYYY-MM-DD" } عند إعلان المواعيد
+        },
+        extraEvents: {},           // مثال: { "2027-02-01": { name: "إجازة", type: "official" } }
+        remoteUrl: ""              // اختياري: رابط JSON بنفس الهيكل لتحديث المواعيد بدون تعديل الكود
+    };
+
+    const FIXED_NATIONAL = [
+        { m: 1,  d: 7,  name: "عيد الميلاد (الأقباط)" },
+        { m: 1,  d: 25, name: "عيد الشرطة" },
+        { m: 4,  d: 25, name: "عيد تحرير سيناء" },
+        { m: 5,  d: 1,  name: "عيد العمال" },
+        { m: 6,  d: 30, name: "ذكرى ثورة 30 يونيو" },
+        { m: 7,  d: 23, name: "عيد ثورة 23 يوليو" },
+        { m: 10, d: 6,  name: "يوم القوات المسلحة" }
+    ];
+
+    const hijriFormatter = (() => {
+        try {
+            return new Intl.DateTimeFormat('en-u-ca-islamic-umalqura', { timeZone: 'UTC', month: 'numeric', day: 'numeric' });
+        } catch (e) { return null; }
+    })();
+
+    function utcDate(y, m, d) { return new Date(Date.UTC(y, m - 1, d)); }
+    function utcKey(dt) { return dt.toISOString().slice(0, 10); }
+    function utcAdd(dt, n) { const r = new Date(dt); r.setUTCDate(r.getUTCDate() + n); return r; }
+    function parseKey(s) { const [y, m, d] = s.split('-').map(Number); return utcDate(y, m, d); }
+
+    function hijriOf(dt) {
+        const parts = hijriFormatter.formatToParts(dt);
+        const get = t => parseInt(parts.find(p => p.type === t).value, 10);
+        return { m: get('month'), d: get('day') };
+    }
+
+    const hijriYearCache = {};
+    function hijriScan(year) {
+        if (!hijriFormatter) return [];
+        if (hijriYearCache[year]) return hijriYearCache[year];
+        const out = [];
+        for (let dt = utcDate(year, 1, 1); dt.getUTCFullYear() === year; dt = utcAdd(dt, 1)) {
+            out.push({ dt, h: hijriOf(dt) });
+        }
+        hijriYearCache[year] = out;
+        return out;
+    }
+
+    function hijriEventsForYear(year) {
+        const list = [];
+        const shift = CALENDAR_CONFIG.hijriAdjustDays || 0;
+        hijriScan(year).forEach(({ dt, h }) => {
+            const push = (name, type, offset = 0) => list.push({ key: utcKey(utcAdd(dt, shift + offset)), name, type });
+            if (h.m === 1 && h.d === 1)  push("رأس السنة الهجرية", "official");
+            if (h.m === 3 && h.d === 12) push("المولد النبوي الشريف", "official");
+            if (h.m === 12 && h.d === 9) push("وقفة عرفات", "eid");
+            if (h.m === 10 && h.d === 1) for (let i = 0; i < CALENDAR_CONFIG.eidFitrHolidayDays; i++) push(i === 0 ? "عيد الفطر" : "عطلة عيد الفطر", "eid", i);
+            if (h.m === 12 && h.d === 10) for (let i = 0; i < CALENDAR_CONFIG.eidAdhaHolidayDays; i++) push(i === 0 ? "عيد الأضحى" : "عطلة عيد الأضحى", "eid", i);
+        });
+        return list;
+    }
+
+    // التقويم القبطي الأرثوذكسي (خوارزمية Meeus الجوليانية) مع إضافة 13 يوماً للتحويل للميلادي
+    function orthodoxEaster(year) {
+        const a = year % 4, b = year % 7, c = year % 19;
+        const d = (19 * c + 15) % 30;
+        const e = (2 * a + 4 * b - d + 34) % 7;
+        const month = Math.floor((d + e + 114) / 31);
+        const day = ((d + e + 114) % 31) + 1;
+        return utcAdd(utcDate(year, month, day), 13);
+    }
+
+    let calendarMap = {};
+
+    function rebuildCalendar() {
+        const cfg = CALENDAR_CONFIG;
+        const map = {};
+        // 1. أحداث يدوية تُكتب فوق كل شيء
+        Object.keys(cfg.extraEvents || {}).forEach(k => { map[k] = cfg.extraEvents[k]; });
+        // لا نكتب فوق حدث موجود
+        const put = (key, ev) => { if (!map[key]) map[key] = ev; };
+
+        const years = [CURRENT_YEAR - 1, CURRENT_YEAR, CURRENT_YEAR + 1, CURRENT_YEAR + 2];
+        years.forEach(y => {
+            // 2. المناسبات الوطنية الثابتة
+            FIXED_NATIONAL.forEach(f => put(utcKey(utcDate(y, f.m, f.d)), { name: f.name, type: "official" }));
+
+            // 3. عيد القيامة وشم النسيم (من الثلاثاء المقدس حتى الاثنين)
+            const easter = orthodoxEaster(y);
+            for (let off = -3; off <= 1; off++) {
+                const name = off === 0 ? "عيد القيامة (الأقباط)" : off === 1 ? "شم النسيم" : "عطلة عيد القيامة";
+                put(utcKey(utcAdd(easter, off)), { name, type: "official" });
+            }
+
+            // 4. الأعياد الهجرية (محسوبة تلقائياً)
+            hijriEventsForYear(y).forEach(ev => put(ev.key, { name: ev.name, type: ev.type }));
+        });
+
+        // 5. امتحانات الثانوية العامة والأزهرية (تُضاف أخيراً حتى لا تخفي العطلات)
+        const addExam = (range, startName, endName, midName) => {
+            if (!range || !range.from || !range.to) return;
+            const from = parseKey(range.from), to = parseKey(range.to);
+            for (let dt = from; dt <= to; dt = utcAdd(dt, 1)) {
+                const key = utcKey(dt);
+                const name = key === range.from ? startName : key === range.to ? endName : midName;
+                put(key, { name, type: "exam" });
+            }
+        };
+        Object.keys(cfg.examsThanaweya || {}).forEach(y => addExam(cfg.examsThanaweya[y],
+            "بداية الثانوية العامة", "🎓 آخر امتحان الثانوية العامة", "امتحانات الثانوية العامة"));
+        Object.keys(cfg.examsAzhar || {}).forEach(y => addExam(cfg.examsAzhar[y],
+            "بداية الثانوية الأزهرية", "🎓 آخر امتحان الثانوية الأزهرية", "امتحانات الثانوية الأزهرية"));
+
+        calendarMap = map;
+    }
+
+    function getCalendarEvent(dateStr) {
+        return calendarMap[dateStr] || null;
+    }
+
+    function getUpcomingCalendarAlerts(days = 7) {
+        const out = [];
+        const todayStr = formatDateLocal(new Date());
+        for (let i = 0; i <= days; i++) {
+            const k = addDaysToDate(todayStr, i);
+            const ev = getCalendarEvent(k);
+            if (!ev) continue;
+            // أيام امتحان داخلية لا تُعرض، نعرض بداية الامتحان فقط
+            if (ev.type === 'exam' && !/^بداية/.test(ev.name)) continue;
+            // نهاية الامتحان تُعرض في تنبيه منفصل
+            if (ev.name.startsWith('🎓')) continue;
+            out.push({ name: ev.name, type: ev.type, days: i });
+        }
+        return out;
+    }
+
+    function getUpcomingExamEnds() {
+        const todayStr = formatDateLocal(new Date());
+        const today = parseKey(todayStr);
+        const res = [];
+        Object.keys(calendarMap).forEach(k => {
+            const ev = calendarMap[k];
+            if (!ev.name.startsWith('🎓') || k < todayStr) return;
+            const diff = Math.round((parseKey(k) - today) / 86400000);
+            res.push({ name: ev.name, days: diff, key: k });
+        });
+        return res.sort((a, b) => a.days - b.days).slice(0, 2);
+    }
+
+    async function loadRemoteCalendarConfig() {
+        const url = CALENDAR_CONFIG.remoteUrl;
+        if (!url) return;
+        try {
+            const res = await fetch(url + (url.includes('?') ? '&' : '?') + 't=' + Date.now());
+            if (!res.ok) return;
+            const remote = await res.json();
+            ['hijriAdjustDays', 'eidFitrHolidayDays', 'eidAdhaHolidayDays'].forEach(k => {
+                if (typeof remote[k] === 'number') CALENDAR_CONFIG[k] = remote[k];
+            });
+            ['examsThanaweya', 'examsAzhar', 'extraEvents'].forEach(k => {
+                if (remote[k] && typeof remote[k] === 'object') CALENDAR_CONFIG[k] = { ...CALENDAR_CONFIG[k], ...remote[k] };
+            });
+            rebuildCalendar();
+            renderAll();
+        } catch (e) { /* نستخدم الإعدادات المدمجة */ }
+    }
+
+    rebuildCalendar();
+
+
     let bookings = [];
     let archivedBookings = JSON.parse(ls.getItem('abdul_radi_archive') || '[]');
     let trashedBookings = JSON.parse(ls.getItem('abdul_radi_trash') || '[]');
@@ -735,7 +921,7 @@
         const entry = { time: new Date().toLocaleString('ar-EG'), action, details };
         auditLogs.unshift(entry);
         if (auditLogs.length > 10) auditLogs.pop();
-        ls.setItem('audit_logs', JSON.stringify(auditLogs));
+        try { ls.setItem('audit_logs', JSON.stringify(auditLogs)); } catch(e) {}
         renderAuditLog();
     }
 
@@ -766,9 +952,11 @@
                     bookings = allNonDeleted.filter(b => !isArchived(b));
                     archivedBookings = allNonDeleted.filter(b => isArchived(b));
                     trashedBookings = cloudData.filter(b => b.deleted);
-                    ls.setItem('abdul_radi_backup', JSON.stringify([...bookings, ...archivedBookings, ...trashedBookings]));
-                    ls.setItem('abdul_radi_archive', JSON.stringify(archivedBookings));
-                    ls.setItem('abdul_radi_trash', JSON.stringify(trashedBookings));
+                    try {
+                        ls.setItem('abdul_radi_backup', JSON.stringify([...bookings, ...archivedBookings, ...trashedBookings]));
+                        ls.setItem('abdul_radi_archive', JSON.stringify(archivedBookings));
+                        ls.setItem('abdul_radi_trash', JSON.stringify(trashedBookings));
+                    } catch(e) {}
                 }
                 renderAll();
             } else throw new Error();
@@ -874,9 +1062,11 @@
             const index = trashedBookings.findIndex(b => b.id === id);
             if (index !== -1) trashedBookings.splice(index, 1);
         }
-        ls.setItem('abdul_radi_backup', JSON.stringify([...bookings, ...archivedBookings, ...trashedBookings]));
-        ls.setItem('abdul_radi_archive', JSON.stringify(archivedBookings));
-        ls.setItem('abdul_radi_trash', JSON.stringify(trashedBookings));
+        try {
+            ls.setItem('abdul_radi_backup', JSON.stringify([...bookings, ...archivedBookings, ...trashedBookings]));
+            ls.setItem('abdul_radi_archive', JSON.stringify(archivedBookings));
+            ls.setItem('abdul_radi_trash', JSON.stringify(trashedBookings));
+        } catch(e) {}
     }
 
     function checkConflict(start, end, excludeId = null) {
@@ -919,7 +1109,7 @@
                 </td>
             `;
         });
-        ls.setItem('abdul_radi_backup', JSON.stringify([...bookings, ...archivedBookings, ...trashedBookings]));
+        try { ls.setItem('abdul_radi_backup', JSON.stringify([...bookings, ...archivedBookings, ...trashedBookings])); } catch(e) {}
         updateDashboard();
         updateAlerts();
     }
@@ -974,6 +1164,13 @@
                 alerts.push({ type: 'info', text: `${name} بعد ${diffStart} يوم` });
             }
         });
+        getUpcomingCalendarAlerts(7).forEach(ev => {
+            const when = ev.days === 0 ? 'اليوم' : ev.days === 1 ? 'غداً' : `بعد ${ev.days} يوم`;
+            alerts.push({ type: ev.type === 'exam' ? 'danger' : 'info', text: `${ev.name} ${when}` });
+        });
+        getUpcomingExamEnds().forEach(ev => {
+            alerts.push({ type: 'warning', text: `${ev.name} بعد ${ev.days} يوم` });
+        });
         const container = document.getElementById('alertsList');
         if (alerts.length === 0) {
             container.innerHTML = '<span style="opacity:0.6; font-size:13px;">كل شيء هادئ</span>';
@@ -1020,10 +1217,12 @@
                 } else {
                     let {color, fullNote, bookingData} = getDayInfoWithData(dateStr);
                     let isFriday = currentWeekStart.getDay() === 5;
+                    const ev = getCalendarEvent(dateStr);
                     let cls = 'day-cell';
                     if(color) cls += ' booked';
                     if(isFriday && !color) cls += ' friday-highlight';
                     if(dateStr === todayStr) cls += ' current-date-highlight';
+                    if(ev) cls += ' event-' + ev.type;
                     cell.className = cls;
                     if(color) cell.style.backgroundColor = color;
 
@@ -1036,7 +1235,7 @@
                                         <span class="month-circle" style="background:${circleColor};">${mm}</span>
                                      </div>
                                      <div class="day-name">${currentWeekStart.toLocaleDateString('ar-EG', {weekday:'short'})}</div>
-                                     <div class="icon-status">${icon}</div>`;
+                                     <div class="icon-status">${icon}</div>${ev && !color ? `<div class="event-label">${ev.name}</div>` : ''}`;
                     if(color) {
                         innerHtml += `<div class="booking-note">${nameDisplay}</div>`;
                         cell.dataset.booking = JSON.stringify(bookingData || {});
@@ -1156,7 +1355,7 @@
 
         let payload = {};
         if(editBookingId !== null) {
-            let existing = bookings.find(b => b.id === editBookingId);
+            let existing = bookings.find(b => b.id === editBookingId) || archivedBookings.find(b => b.id === editBookingId);
             payload = { action: "update", id: editBookingId, start, days, end, notes: notesStr, color: existing.color };
             editBookingId = null;
             document.getElementById('submitBtn').innerHTML = '<i class="fa-solid fa-plus"></i><span>إضافة</span>';
@@ -1172,7 +1371,7 @@
         document.getElementById('startMonth').value = '';
     }
 
-    window.startEditBooking = function(id) {
+    function startEditBooking(id) {
         let b = allBookings().find(b => b.id === id);
         if(!b) return;
         document.getElementById('archiveModal').style.display = 'none';
@@ -1192,26 +1391,31 @@
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    window.deleteBooking = function(id) {
+    function deleteBooking(id) {
         if(confirm("حذف هذا الحجز إلى سلة المحذوفات؟")) {
             document.getElementById('archiveModal').style.display = 'none';
             sendDataToSheets({ action: "delete", id }, "جاري الحذف...");
         }
     }
 
-    window.restoreBooking = function(id) {
+    function restoreBooking(id) {
         sendDataToSheets({ action: "restore", id }, "جاري الاستعادة...");
     }
 
-    window.permanentDeleteBooking = function(id) {
+    function permanentDeleteBooking(id) {
         if(confirm("⚠️ حذف نهائي لا يمكن التراجع عنه. متأكد؟")) {
             sendDataToSheets({ action: "permanent_delete", id }, "جاري الحذف النهائي...");
         }
     }
 
-    window.openTrash = function() {
+    function openTrash() {
         renderTrash();
         document.getElementById('trashModal').style.display = 'flex';
+    }
+
+    function openArchive() {
+        renderArchive();
+        document.getElementById('archiveModal').style.display = 'flex';
     }
 
     function renderTrash() {
@@ -1222,14 +1426,39 @@
         }
         container.innerHTML = trashedBookings.map(b => {
             const p = parseNotes(b.notes);
-            return `<div class="trash-item">
+            return `<div class="trash-item" data-id="${b.id}">
                 <div>
                     <strong>${p.name || 'غير محدد'}</strong><br>
                     <small style="opacity:0.7;">${formatDateArabic(b.start)} - ${b.days} يوم</small>
                 </div>
                 <div style="display:flex; gap:8px; flex-wrap:wrap;">
-                    <button class="btn-restore" onclick="restoreBooking('${b.id}')"><i class="fa-solid fa-rotate-left"></i> استعادة</button>
-                    <button class="btn-permanent-delete" onclick="permanentDeleteBooking('${b.id}')"><i class="fa-solid fa-fire"></i> نهائي</button>
+                    <button class="btn-restore" data-action="restore"><i class="fa-solid fa-rotate-left"></i> استعادة</button>
+                    <button class="btn-permanent-delete" data-action="permanent_delete"><i class="fa-solid fa-fire"></i> نهائي</button>
+                </div>
+            </div>`;
+        }).join('');
+    }
+
+    function renderArchive() {
+        const container = document.getElementById('archiveList');
+        if (archivedBookings.length === 0) {
+            container.innerHTML = '<div style="opacity:0.6; text-align:center; padding:20px;">لا توجد حجوزات مؤرشفة</div>';
+            return;
+        }
+        archivedBookings.sort((a,b) => b.start.localeCompare(a.start));
+        container.innerHTML = archivedBookings.map(b => {
+            const p = parseNotes(b.notes);
+            return `<div class="trash-item" data-id="${b.id}">
+                <div style="flex: 1;">
+                    <strong>${p.name || 'غير محدد'}</strong><br>
+                    <small style="opacity:0.7;">${formatDateArabic(b.start)} - ${formatDateArabic(b.end)} (${b.days} يوم)</small>
+                    <div style="font-size:12px; color:var(--text-muted); margin-top:6px;">
+                        الإجمالي: ${p.total || 0} | المدفوع: ${p.paid || 0}
+                    </div>
+                </div>
+                <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                    <button class="btn-edit" data-action="edit"><i class="fa-solid fa-pen"></i></button>
+                    <button class="btn-delete" data-action="delete"><i class="fa-solid fa-trash"></i></button>
                 </div>
             </div>`;
         }).join('');
@@ -1430,8 +1659,13 @@
         btn.title = isDark ? 'الوضع النهاري' : 'الوضع الليلي';
     }
 
+    function isMobile() {
+        return window.innerWidth <= 768;
+    }
+
     function renderAll() { renderTable(); renderTimeline(); renderAuditLog(); }
 
+    // Event Listeners
     document.getElementById('submitBtn').addEventListener('click', handleSubmit);
     document.getElementById('exportImageBtn').addEventListener('click', saveAsImage);
     document.getElementById('whatsapp1Btn').addEventListener('click', function() { sendImageToWhatsApp('201111196731', this); });
@@ -1441,7 +1675,7 @@
     document.getElementById('csvFileInput').addEventListener('change', function(e) { if(this.files?.[0]) importCSV(this.files[0]); this.value=''; });
     document.getElementById('darkModeToggle').addEventListener('click', toggleDarkMode);
     document.getElementById('trashBtn').addEventListener('click', openTrash);
-    document.getElementById('archiveBtn').addEventListener('click', () => window.openArchive());
+    document.getElementById('archiveBtn').addEventListener('click', openArchive);
     document.getElementById('fixDatesBtn').addEventListener('click', fixAllEndDates);
     document.getElementById('searchInput').addEventListener('input', function(e) {
         searchTerm = e.target.value;
@@ -1454,6 +1688,7 @@
         renderTable();
     });
 
+    // Table Buttons Delegation (Fixes ReferenceError)
     document.getElementById('bookingsTableBody').addEventListener('click', function(e) {
         const btn = e.target.closest('button');
         if (!btn) return;
@@ -1462,6 +1697,35 @@
         if (action === 'edit') startEditBooking(id);
         else if (action === 'delete') deleteBooking(id);
     });
+
+    // Trash List Buttons Delegation
+    document.getElementById('trashList').addEventListener('click', function(e) {
+        const btn = e.target.closest('button');
+        if (!btn) return;
+        const item = e.target.closest('.trash-item');
+        if (!item) return;
+        const id = item.dataset.id;
+        const action = btn.dataset.action;
+        if (action === 'restore') restoreBooking(id);
+        else if (action === 'permanent_delete') permanentDeleteBooking(id);
+    });
+
+    // Archive List Buttons Delegation
+    document.getElementById('archiveList').addEventListener('click', function(e) {
+        const btn = e.target.closest('button');
+        if (!btn) return;
+        const item = e.target.closest('.trash-item');
+        if (!item) return;
+        const id = item.dataset.id;
+        const action = btn.dataset.action;
+        if (action === 'edit') startEditBooking(id);
+        else if (action === 'delete') deleteBooking(id);
+    });
+
+    // Close Buttons Listeners
+    document.getElementById('ttCloseBtn').addEventListener('click', () => { tooltip.style.display = 'none'; });
+    document.getElementById('trashCloseBtn').addEventListener('click', () => { document.getElementById('trashModal').style.display = 'none'; });
+    document.getElementById('archiveCloseBtn').addEventListener('click', () => { document.getElementById('archiveModal').style.display = 'none'; });
 
     document.getElementById('startMonth').addEventListener('change', function() {
         let m = parseInt(this.value);
@@ -1476,42 +1740,15 @@
         }
     });
 
-    window.openArchive = function() {
-        renderArchive();
-        document.getElementById('archiveModal').style.display = 'flex';
-    }
-
-    function renderArchive() {
-        const container = document.getElementById('archiveList');
-        if (archivedBookings.length === 0) {
-            container.innerHTML = '<div style="opacity:0.6; text-align:center; padding:20px;">لا توجد حجوزات مؤرشفة</div>';
-            return;
-        }
-        archivedBookings.sort((a,b) => b.start.localeCompare(a.start));
-        container.innerHTML = archivedBookings.map(b => {
-            const p = parseNotes(b.notes);
-            return `<div class="trash-item">
-                <div style="flex: 1;">
-                    <strong>${p.name || 'غير محدد'}</strong><br>
-                    <small style="opacity:0.7;">${formatDateArabic(b.start)} - ${formatDateArabic(b.end)} (${b.days} يوم)</small>
-                    <div style="font-size:12px; color:var(--text-muted); margin-top:6px;">
-                        الإجمالي: ${p.total || 0} | المدفوع: ${p.paid || 0}
-                    </div>
-                </div>
-                <div style="display:flex; gap:8px; flex-wrap:wrap;">
-                    <button class="btn-edit" onclick="startEditBooking('${b.id}', true)"><i class="fa-solid fa-pen"></i></button>
-                    <button class="btn-delete" onclick="deleteBooking('${b.id}')"><i class="fa-solid fa-trash"></i></button>
-                </div>
-            </div>`;
-        }).join('');
-    }
-
-    window.onload = () => fetchBookingsFromSheets();
+    window.onload = () => {
+        fetchBookingsFromSheets();
+        loadRemoteCalendarConfig();
+    };
 })();
 </script>
 
 <script>
-    // 2. Safely handle Service Worker for sandbox environments
+    // 2. Safely handle Service Worker for sandbox/local environments
     try {
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
