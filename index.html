@@ -6,7 +6,7 @@
     <title>شقة عبد الراضي - نظام الإدارة المتكامل</title>
 
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#123B52">
+    <meta name="theme-color" content="#0067C0">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -18,146 +18,203 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
         :root {
-            --navy: #123B52; --navy-light: #1D5679; --gold: #C89B3C; --gold-light: #E0B75C;
-            --teal: #1E8A6E; --coral: #D64545; --sand: #F5F2EA;
-            --bg-body: var(--sand); --bg-container: rgba(255,255,255,0.85);
-            --text-color: #1C2B33; --text-muted: #5B6B73; --card-bg: rgba(255,255,255,0.55);
-            --card-solid: #ffffff; --border-color: rgba(18,59,82,0.12);
-            --shadow: 0 10px 30px rgba(18,59,82,.10); --shadow-sm: 0 3px 10px rgba(18,59,82,.08);
-            --cell-bg: rgba(18,59,82,0.04); --cell-border: rgba(18,59,82,0.10);
-            --table-header: var(--navy); --radius-sm: 8px; --radius-md: 12px; --radius-lg: 18px;
-            --font-ui: 'Cairo', 'Segoe UI', Tahoma, Arial, sans-serif;
-            --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+            /* Windows 11 / iPadOS Hybrid Palette */
+            --win-blue: #0067C0;
+            --win-blue-light: #2A9DF4;
+            --accent-purple: #8B5CF6;
+            --accent-teal: #14B8A6;
+            --accent-coral: #F43F5E;
+            --accent-gold: #F59E0B;
+            
+            --bg-body: #f3f4f6; /* Windows 11 desktop gray */
+            --bg-container: rgba(255, 255, 255, 0.65);
+            --bg-container-solid: rgba(255, 255, 255, 0.9);
+            --text-color: #1f2937;
+            --text-muted: #6b7280;
+            --card-bg: rgba(255, 255, 255, 0.5);
+            --card-solid: #ffffff;
+            --border-color: rgba(0, 0, 0, 0.08);
+            
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+            --shadow-hover: 0 12px 40px rgba(0, 0, 0, 0.12);
+            
+            --cell-bg: rgba(0, 0, 0, 0.02);
+            --cell-border: rgba(0, 0, 0, 0.06);
+            --table-header: rgba(255, 255, 255, 0.8);
+            
+            --radius-sm: 8px;
+            --radius-md: 16px; /* iPadOS style rounded corners */
+            --radius-lg: 24px;
+            
+            --font-ui: -apple-system, BlinkMacSystemFont, "Segoe UI Variable", "Segoe UI", "Cairo", Tahoma, Arial, sans-serif;
+            --font-mono: 'JetBrains Mono', 'SF Mono', 'Courier New', monospace;
         }
         body.dark-mode {
-            --bg-body: #0E1A22; --bg-container: rgba(19,33,44,0.92); --text-color: #EDF2F4;
-            --text-muted: #9FB0B8; --card-bg: rgba(255,255,255,0.05); --card-solid: #16262F;
-            --border-color: rgba(255,255,255,0.10); --shadow: 0 10px 30px rgba(0,0,0,0.45);
-            --shadow-sm: 0 3px 10px rgba(0,0,0,0.35); --cell-bg: rgba(255,255,255,0.04);
-            --cell-border: rgba(255,255,255,0.10); --table-header: #0C2436;
+            --bg-body: #0a0a0a; /* Windows 11 Dark Desktop */
+            --bg-container: rgba(30, 30, 30, 0.7);
+            --bg-container-solid: rgba(30, 30, 30, 0.95);
+            --text-color: #f3f4f6;
+            --text-muted: #9ca3af;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --card-solid: #1f1f1f;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+            --shadow-hover: 0 12px 40px rgba(0, 0, 0, 0.5);
+            --cell-bg: rgba(255, 255, 255, 0.03);
+            --cell-border: rgba(255, 255, 255, 0.08);
+            --table-header: rgba(40, 40, 40, 0.8);
         }
         html { scroll-behavior: smooth; }
         body {
-            font-family: var(--font-ui); background-color: var(--bg-body); padding: 10px;
+            font-family: var(--font-ui);
+            background-color: var(--bg-body);
+            /* iPadOS / Windows 11 Abstract Desktop Background */
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(0, 103, 192, 0.15) 0px, transparent 50%),
+                radial-gradient(at 90% 10%, rgba(139, 92, 246, 0.15) 0px, transparent 50%),
+                radial-gradient(at 50% 100%, rgba(20, 184, 166, 0.1) 0px, transparent 50%);
+            padding: 16px;
             transition: background-color 0.4s, color 0.3s; color: var(--text-color);
-            font-size: 14px; line-height: 1.5;
+            font-size: 15px; line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
         }
         button, input, select, textarea { font-family: var(--font-ui); }
         button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible {
-            outline: 2px solid var(--gold); outline-offset: 2px;
+            outline: 2px solid var(--win-blue); outline-offset: 2px;
         }
+
+        /* Main Container - Fluent Design / Mica Material */
         .container {
-            max-width: 1320px; margin: 0 auto; background: var(--bg-container); padding: 16px;
-            border-radius: var(--radius-lg); backdrop-filter: blur(18px); border: 1px solid var(--border-color);
-            box-shadow: var(--shadow) !important; transition: background 0.4s, border 0.3s;
+            max-width: 1320px; margin: 0 auto; background: var(--bg-container); padding: 24px;
+            border-radius: var(--radius-lg); backdrop-filter: blur(40px) saturate(180%); -webkit-backdrop-filter: blur(40px) saturate(180%);
+            border: 1px solid var(--border-color); box-shadow: var(--shadow) !important; 
+            transition: background 0.4s, border 0.3s;
         }
+
+        /* Clock - iPadOS Widget Style */
         .digital-clock {
-            font-family: var(--font-mono); text-align: center; padding: 14px 18px; margin-bottom: 14px;
-            border-radius: var(--radius-lg); background: linear-gradient(135deg, var(--navy), var(--navy-light));
-            border: 1px solid rgba(255,255,255,0.12);
-            box-shadow: inset 0 1px 2px rgba(255,255,255,0.15), 0 8px 22px rgba(18,59,82,0.35);
-            display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap;
+            font-family: var(--font-mono); text-align: center; padding: 20px 24px; margin-bottom: 20px;
+            border-radius: var(--radius-lg); background: var(--card-bg); backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);
+            display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap;
         }
         .clock-day {
-            background: rgba(255,255,255,0.12); color: #fff; padding: 6px 16px; border-radius: 30px;
-            font-size: 0.95rem; font-weight: 700; font-family: var(--font-ui); border: 1px solid rgba(255,255,255,0.2); letter-spacing: 0.3px;
+            background: var(--win-blue); color: #fff; padding: 8px 20px; border-radius: 20px;
+            font-size: 1rem; font-weight: 600; font-family: var(--font-ui); letter-spacing: 0.5px;
         }
         .clock-time {
-            font-size: 2.1rem; font-weight: 700; color: #fff; direction: ltr; display: inline-flex;
-            align-items: baseline; gap: 5px; letter-spacing: 1px;
+            font-size: 2.5rem; font-weight: 300; color: var(--text-color); direction: ltr; display: inline-flex;
+            align-items: baseline; gap: 6px; letter-spacing: 1px;
         }
-        .clock-ampm { font-size: 0.95rem; color: var(--gold-light); font-weight: 700; margin-right: 2px; }
+        .clock-ampm { font-size: 1.2rem; color: var(--text-muted); font-weight: 500; margin-right: 4px; }
+
+        /* Top Bar - Windows 11 Ribbon Style */
         .top-bar {
-            display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px;
-            background: var(--card-bg); backdrop-filter: blur(14px); border: 1px solid var(--border-color);
-            padding: 10px 12px; border-radius: var(--radius-md); margin-bottom: 12px; transition: background 0.3s;
+            display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px;
+            background: var(--card-bg); backdrop-filter: blur(20px); border: 1px solid var(--border-color);
+            padding: 12px 16px; border-radius: var(--radius-md); margin-bottom: 20px; transition: background 0.3s;
             position: relative; z-index: 30;
         }
         .file-status {
-            display: flex; align-items: center; gap: 7px; font-size: 12.5px;
-            background: rgba(30,138,110,0.12); color: var(--teal); padding: 6px 14px;
-            border-radius: 20px; font-weight: 700;
+            display: flex; align-items: center; gap: 8px; font-size: 13px;
+            background: rgba(20, 184, 166, 0.1); color: var(--accent-teal); padding: 6px 16px;
+            border-radius: 8px; font-weight: 600;
         }
-        body.dark-mode .file-status { background: rgba(30,138,110,0.18); }
-        .file-status i { font-size: 13px; }
-        .toolbar-actions { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+        body.dark-mode .file-status { background: rgba(20, 184, 166, 0.15); }
+        .toolbar-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+        
+        /* Fluent Buttons */
         .btn-pill {
-            border: none; cursor: pointer; height: 38px; border-radius: 10px;
-            display: inline-flex; align-items: center; justify-content: center; gap: 6px;
-            font-weight: 700; font-size: 12.5px; padding: 0 14px;
-            transition: transform .15s ease, box-shadow .15s ease, filter .15s ease;
-            box-shadow: var(--shadow-sm); color: #fff; touch-action: manipulation; white-space: nowrap;
+            border: 1px solid transparent; cursor: pointer; height: 40px; border-radius: 8px; /* Win11 radius */
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+            font-weight: 600; font-size: 13.5px; padding: 0 16px;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: none; color: #fff; touch-action: manipulation; white-space: nowrap;
         }
-        .btn-pill i { font-size: 13px; }
-        .btn-pill:hover { filter: brightness(1.07); box-shadow: 0 6px 16px rgba(18,59,82,0.18); }
-        .btn-pill:active { transform: translateY(1px) scale(0.98); }
-        .btn-pill.icon-only { width: 38px; padding: 0; }
-        .btn-pill.tone-navy { background: linear-gradient(135deg, var(--navy), var(--navy-light)); }
-        .btn-pill.tone-gold { background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: #2B1F04; }
-        .btn-pill.tone-teal { background: linear-gradient(135deg, var(--teal), #22A886); }
-        .btn-pill.tone-coral { background: linear-gradient(135deg, var(--coral), #B93737); }
+        .btn-pill i { font-size: 14px; }
+        .btn-pill:hover { box-shadow: var(--shadow-sm); transform: translateY(-1px); }
+        .btn-pill:active { transform: translateY(0) scale(0.98); }
+        .btn-pill.icon-only { width: 40px; padding: 0; font-size: 15px; }
+        
+        .btn-pill.tone-navy { background: var(--win-blue); }
+        .btn-pill.tone-gold { background: var(--accent-gold); color: #fff; }
+        .btn-pill.tone-teal { background: var(--accent-teal); }
+        .btn-pill.tone-coral { background: var(--accent-coral); }
         .btn-pill.tone-ghost {
-            background: transparent; color: var(--navy); border: 1.5px solid var(--border-color); box-shadow: none;
+            background: transparent; color: var(--text-color); border: 1px solid var(--border-color); 
         }
-        body.dark-mode .btn-pill.tone-ghost { color: #EDF2F4; }
-        .btn-pill.tone-ghost:hover { background: rgba(18,59,82,0.06); }
+        .btn-pill.tone-ghost:hover { background: var(--cell-bg); }
+        body.dark-mode .btn-pill.tone-ghost { color: #fff; border-color: var(--border-color); }
+
+        /* Dropdown Menu - Win11 Style */
         .tools-menu { position: relative; }
         .tools-dropdown {
             position: absolute; top: calc(100% + 8px); left: 0; z-index: 500;
-            background: var(--card-solid); border: 1px solid var(--border-color);
-            border-radius: var(--radius-md); box-shadow: 0 16px 40px rgba(18,59,82,0.22);
-            min-width: 220px; padding: 6px; display: none; flex-direction: column; gap: 2px;
+            background: var(--bg-container-solid); backdrop-filter: blur(40px); border: 1px solid var(--border-color);
+            border-radius: var(--radius-md); box-shadow: var(--shadow-hover);
+            min-width: 240px; padding: 8px; display: none; flex-direction: column; gap: 2px;
+            animation: dropdownIn 0.2s ease forwards;
         }
+        @keyframes dropdownIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
         .tools-dropdown.open { display: flex; }
         .tools-dropdown button {
-            display: flex; align-items: center; gap: 10px; width: 100%;
+            display: flex; align-items: center; gap: 12px; width: 100%;
             background: transparent; border: none; color: var(--text-color);
-            padding: 10px 12px; border-radius: 8px; font-family: var(--font-ui);
-            font-size: 13px; font-weight: 600; cursor: pointer; text-align: right; transition: background .15s;
+            padding: 12px 14px; border-radius: 8px; font-family: var(--font-ui);
+            font-size: 14px; font-weight: 500; cursor: pointer; text-align: right; transition: background .15s;
         }
-        .tools-dropdown button:hover { background: rgba(18,59,82,0.07); }
-        .tools-dropdown button i { width: 18px; text-align: center; color: var(--navy); }
-        body.dark-mode .tools-dropdown button i { color: var(--gold-light); }
-        .tools-dropdown .divider { height: 1px; background: var(--border-color); margin: 4px 6px; }
-        .dashboard-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 14px; }
+        .tools-dropdown button:hover { background: var(--cell-bg); }
+        .tools-dropdown button i { width: 20px; text-align: center; color: var(--win-blue); font-size: 16px; }
+        body.dark-mode .tools-dropdown button i { color: var(--win-blue-light); }
+        .tools-dropdown .divider { height: 1px; background: var(--border-color); margin: 6px 8px; }
+
+        /* Dashboard Stats - iPadOS Widgets */
+        .dashboard-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 20px; }
         .stat-card {
-            background: var(--card-bg); backdrop-filter: blur(12px); border: 1px solid var(--border-color);
-            border-radius: var(--radius-md); padding: 14px 10px; text-align: center;
-            box-shadow: var(--shadow-sm); transition: transform .2s ease, box-shadow .2s ease;
+            background: var(--card-bg); backdrop-filter: blur(20px); border: 1px solid var(--border-color);
+            border-radius: var(--radius-md); padding: 20px 16px; text-align: center;
+            box-shadow: var(--shadow-sm); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative; overflow: hidden;
         }
-        .stat-card:hover { transform: translateY(-3px); box-shadow: 0 10px 26px rgba(18,59,82,0.15); }
+        .stat-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
         .stat-card i.stat-icon {
-            font-size: 15px; width: 32px; height: 32px; border-radius: 9px;
-            display: flex; align-items: center; justify-content: center; margin: 0 auto 6px;
+            font-size: 18px; width: 40px; height: 40px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center; margin: 0 auto 12px;
+            transition: transform 0.3s;
         }
-        .stat-card .num { font-size: 1.55rem; font-weight: 800; display: block; line-height: 1.2; font-family: var(--font-mono); }
-        .stat-card .label { font-size: 11px; opacity: 0.8; font-weight: 700; margin-top: 2px; display: block; }
-        .stat-card.blue .num { color: var(--navy-light); } .stat-card.blue i.stat-icon { background: rgba(29,86,121,.12); color: var(--navy-light); }
-        .stat-card.green .num { color: var(--teal); } .stat-card.green i.stat-icon { background: rgba(30,138,110,.12); color: var(--teal); }
-        .stat-card.purple .num { color: #6C5CE7; } .stat-card.purple i.stat-icon { background: rgba(108,92,231,.12); color: #6C5CE7; }
-        .stat-card.orange .num { color: var(--gold); } .stat-card.orange i.stat-icon { background: rgba(200,155,60,.15); color: var(--gold); }
+        .stat-card:hover i.stat-icon { transform: scale(1.1) rotate(5deg); }
+        .stat-card .num { font-size: 1.8rem; font-weight: 700; display: block; line-height: 1.2; font-family: var(--font-mono); }
+        .stat-card .label { font-size: 12px; opacity: 0.7; font-weight: 600; margin-top: 4px; display: block; text-transform: uppercase; letter-spacing: 0.5px; }
+        
+        .stat-card.blue { background: linear-gradient(135deg, rgba(0, 103, 192, 0.1), transparent); } .stat-card.blue .num { color: var(--win-blue); } .stat-card.blue i.stat-icon { background: rgba(0, 103, 192, .1); color: var(--win-blue); }
+        .stat-card.green { background: linear-gradient(135deg, rgba(20, 184, 166, 0.1), transparent); } .stat-card.green .num { color: var(--accent-teal); } .stat-card.green i.stat-icon { background: rgba(20, 184, 166, .1); color: var(--accent-teal); }
+        .stat-card.purple { background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), transparent); } .stat-card.purple .num { color: var(--accent-purple); } .stat-card.purple i.stat-icon { background: rgba(139, 92, 246, .1); color: var(--accent-purple); }
+        .stat-card.orange { background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), transparent); } .stat-card.orange .num { color: var(--accent-gold); } .stat-card.orange i.stat-icon { background: rgba(245, 158, 11, .1); color: var(--accent-gold); }
+
+        /* Alerts - iPadOS Banners */
         .alerts-container {
-            display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 14px; padding: 10px 12px;
+            display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; padding: 12px 16px;
             background: var(--card-bg); border-radius: var(--radius-md); border: 1px solid var(--border-color);
-            min-height: 44px; align-items: center;
+            min-height: 48px; align-items: center;
         }
-        .alerts-container > .alerts-icon { color: var(--gold); font-size: 15px; }
+        .alerts-container > .alerts-icon { color: var(--accent-gold); font-size: 16px; }
         .alert-badge {
-            padding: 5px 13px; border-radius: 30px; font-size: 12px; font-weight: 700;
-            display: inline-flex; align-items: center; gap: 5px;
+            padding: 6px 14px; border-radius: 20px; font-size: 12.5px; font-weight: 600;
+            display: inline-flex; align-items: center; gap: 6px;
         }
-        .alert-badge.danger { background: rgba(214,69,69,.13); color: var(--coral); }
-        .alert-badge.warning { background: rgba(200,155,60,.16); color: #8A6410; }
-        .alert-badge.info { background: rgba(29,86,121,.12); color: var(--navy-light); }
-        body.dark-mode .alert-badge.warning { color: var(--gold-light); }
+        .alert-badge.danger { background: rgba(244, 63, 94, .1); color: var(--accent-coral); }
+        .alert-badge.warning { background: rgba(245, 158, 11, .1); color: var(--accent-gold); }
+        .alert-badge.info { background: rgba(0, 103, 192, .1); color: var(--win-blue); }
+
+        /* Form - Win11 Settings Style */
         .form-group {
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 14px;
-            background: var(--card-bg); backdrop-filter: blur(14px); padding: 14px;
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 20px;
+            background: var(--card-bg); backdrop-filter: blur(20px); padding: 24px;
             border-radius: var(--radius-md); border: 1px solid var(--border-color);
             box-shadow: var(--shadow-sm); transition: background 0.3s;
         }
@@ -165,227 +222,228 @@
         .form-group .wide { grid-column: span 2; }
         .form-group .full-width { grid-column: 1 / -1; }
         .form-group .submit-col { grid-column: 1 / -1; }
-        .date-row { display: flex; gap: 5px; }
-        label { display: flex; align-items: center; gap: 5px; font-size: 11.5px; font-weight: 700; margin-bottom: 4px; color: var(--text-muted); }
-        label i { color: var(--navy-light); font-size: 11px; width: 14px; text-align: center; }
-        body.dark-mode label i { color: var(--gold-light); }
+        .date-row { display: flex; gap: 8px; }
+        label { display: flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 600; margin-bottom: 6px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+        label i { color: var(--win-blue); font-size: 12px; width: 16px; text-align: center; }
+        
         input, select, textarea {
-            width: 100%; padding: 9px 10px; border: 1.5px solid var(--border-color); border-radius: var(--radius-sm);
-            font-size: 14px; background: rgba(255,255,255,0.8); color: #1a1a1a;
-            -webkit-appearance: none; appearance: none; transition: border-color .15s, box-shadow .15s;
+            width: 100%; padding: 10px 14px; border: 1px solid var(--border-color); border-radius: 8px;
+            font-size: 14.5px; background: var(--bg-container-solid); color: var(--text-color);
+            -webkit-appearance: none; appearance: none; transition: all .2s; font-weight: 500;
         }
-        input:focus, select:focus, textarea:focus { border-color: var(--navy-light); box-shadow: 0 0 0 3px rgba(29,86,121,0.12); }
-        textarea { min-height: 52px; resize: vertical; }
-        body.dark-mode input, body.dark-mode select, body.dark-mode textarea { background: rgba(0,0,0,0.25); color: #fff; border-color: rgba(255,255,255,0.14); }
+        input:focus, select:focus, textarea:focus { 
+            border-color: var(--win-blue); box-shadow: 0 0 0 3px rgba(0, 103, 192, 0.15); 
+            background: var(--card-solid);
+        }
+        textarea { min-height: 56px; resize: vertical; }
+        
         .btn-add, .btn-update {
-            border: none; color: white; font-weight: 800; cursor: pointer; padding: 13px;
-            font-size: 14px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; gap: 8px;
-            transition: all .2s ease; box-shadow: var(--shadow-sm); width: 100%; touch-action: manipulation;
+            border: none; color: white; font-weight: 600; cursor: pointer; padding: 14px;
+            font-size: 15px; border-radius: 8px; display: flex; align-items: center; justify-content: center; gap: 8px;
+            transition: all .2s ease; width: 100%; touch-action: manipulation;
         }
-        .btn-add { background: linear-gradient(135deg, var(--teal), #22A886); }
-        .btn-update { background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: #2B1F04; }
-        .btn-add:hover, .btn-update:hover { filter: brightness(1.06); box-shadow: 0 8px 20px rgba(18,59,82,0.18); }
-        .btn-add:active, .btn-update:active { transform: translateY(1px); }
+        .btn-add { background: var(--win-blue); }
+        .btn-update { background: var(--accent-gold); }
+        .btn-add:hover, .btn-update:hover { box-shadow: var(--shadow-hover); transform: translateY(-1px); }
+        .btn-add:active, .btn-update:active { transform: translateY(0); }
+
+        /* Search Bar - iPadOS Style */
         .search-bar {
-            display: flex; align-items: center; gap: 8px; margin-bottom: 12px;
-            background: var(--card-bg); padding: 4px; border-radius: 30px; border: 1px solid var(--border-color); position: relative;
+            display: flex; align-items: center; gap: 8px; margin-bottom: 16px;
+            background: var(--card-bg); padding: 6px; border-radius: 12px; border: 1px solid var(--border-color); position: relative;
         }
-        .search-bar i.search-icon { position: absolute; right: 16px; color: var(--text-muted); font-size: 13px; pointer-events: none; }
-        .search-bar input { flex: 1; padding: 9px 40px 9px 14px; border-radius: 30px; border: none; background: transparent; }
-        .search-bar input:focus { box-shadow: none; }
+        .search-bar i.search-icon { position: absolute; right: 18px; color: var(--text-muted); font-size: 14px; pointer-events: none; }
+        .search-bar input { flex: 1; padding: 10px 44px 10px 16px; border-radius: 8px; border: none; background: transparent; font-size: 15px; }
+        .search-bar input:focus { box-shadow: none; background: var(--cell-bg); }
+
+        /* Table - Win11 File Explorer Style */
         .table-wrapper {
-            overflow-x: auto; margin-bottom: 14px; border-radius: var(--radius-md);
+            overflow-x: auto; margin-bottom: 20px; border-radius: var(--radius-md);
             border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); -webkit-overflow-scrolling: touch;
+            background: var(--card-solid);
         }
-        table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 13px; background: var(--card-solid); min-width: 760px; }
-        th, td { padding: 10px 8px; text-align: center; vertical-align: middle; border-bottom: 1px solid var(--border-color); }
+        table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 13.5px; background: transparent; min-width: 760px; }
+        th, td { padding: 12px 10px; text-align: center; vertical-align: middle; border-bottom: 1px solid var(--border-color); }
         th {
-            background: var(--table-header) !important; color: #fff; font-size: 12.5px; font-weight: 700;
-            position: sticky; top: 0; letter-spacing: 0.2px; z-index: 2;
+            background: var(--table-header) !important; color: var(--text-muted); font-size: 12px; font-weight: 700;
+            position: sticky; top: 0; letter-spacing: 0.5px; z-index: 2; text-transform: uppercase;
         }
-        th:first-child { border-top-right-radius: var(--radius-md); }
-        th:last-child { border-top-left-radius: var(--radius-md); }
-        tbody tr { background: var(--card-solid); transition: background .15s ease; }
-        tbody tr:nth-child(even) { background: rgba(18,59,82,0.025); }
-        body.dark-mode tbody tr:nth-child(even) { background: rgba(255,255,255,0.02); }
-        tbody tr:hover { background: rgba(200,155,60,0.09) !important; }
+        tbody tr { background: transparent; transition: background .15s ease; }
+        tbody tr:nth-child(even) { background: var(--cell-bg); }
+        tbody tr:hover { background: rgba(0, 103, 192, 0.05) !important; }
         tbody tr:last-child td { border-bottom: none; }
+        
         .btn-edit, .btn-delete {
-            border: none; font-size: 11px; font-weight: 700; cursor: pointer; min-width: 56px; height: 30px; color: white; border-radius: 8px;
-            transition: all .2s ease; padding: 0 10px; display: inline-flex; align-items: center; justify-content: center; gap: 5px; touch-action: manipulation;
+            border: none; font-size: 12px; font-weight: 600; cursor: pointer; min-width: 64px; height: 32px; color: white; border-radius: 6px;
+            transition: all .2s ease; padding: 0 12px; display: inline-flex; align-items: center; justify-content: center; gap: 6px; touch-action: manipulation;
         }
-        .btn-edit { background: linear-gradient(135deg, var(--navy-light), var(--navy)); }
-        .btn-delete { background: linear-gradient(135deg, var(--coral), #B93737); }
-        .btn-edit:hover, .btn-delete:hover { filter: brightness(1.1); }
-        .color-badge { display: inline-block; width: 15px; height: 15px; border-radius: 50%; box-shadow: 0 1px 3px rgba(0,0,0,0.25); border: 2px solid var(--card-solid); }
-        .timeline-grid { display: flex; flex-direction: column; margin-top: 12px; gap: 4px; }
-        .timeline-row { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+        .btn-edit { background: var(--win-blue); }
+        .btn-delete { background: var(--accent-coral); }
+        .btn-edit:hover, .btn-delete:hover { box-shadow: var(--shadow-sm); filter: brightness(1.05); }
+        .color-badge { display: inline-block; width: 16px; height: 16px; border-radius: 50%; box-shadow: 0 1px 3px rgba(0,0,0,0.2); border: 2px solid var(--card-solid); }
+
+        /* Timeline Grid - iPadOS Springboard Style */
+        .timeline-grid { display: flex; flex-direction: column; margin-top: 16px; gap: 6px; }
+        .timeline-row { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
         .day-cell {
-            border: 1px solid var(--cell-border); background: var(--cell-bg); border-radius: 12px;
+            border: 1px solid var(--cell-border); background: var(--card-bg); backdrop-filter: blur(10px); border-radius: 16px;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            aspect-ratio: 1/1; transition: transform 0.18s ease, box-shadow 0.18s ease;
-            font-size: 10px; position: relative; z-index: 1; text-align: center; padding: 2px; color: var(--text-color);
+            aspect-ratio: 1/1; transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease; /* iOS Spring */
+            font-size: 10px; position: relative; z-index: 1; text-align: center; padding: 4px; color: var(--text-color);
             contain: layout style paint; cursor: pointer; touch-action: manipulation;
         }
-        .day-cell:active { transform: scale(0.95); }
-        .day-cell.out-of-bounds { opacity: 0.22; pointer-events: none; }
+        .day-cell:active { transform: scale(0.92); }
+        .day-cell.out-of-bounds { opacity: 0.3; pointer-events: none; }
         .day-cell.booked {
-            color: white; border: 1px solid rgba(255,255,255,.35);
-            box-shadow: inset 0 1px 1px rgba(255,255,255,.3), 0 4px 12px rgba(0,0,0,0.18);
+            color: white; border: 1px solid rgba(255,255,255,.2);
+            box-shadow: inset 0 1px 2px rgba(255,255,255,.2), 0 4px 12px rgba(0,0,0,0.1);
         }
-        .day-cell .date-display-wrapper { display: flex; align-items: center; justify-content: center; gap: 2px; font-weight: bold; width: 100%; }
-        .day-cell .day-number { font-size: 16px; font-weight: 800; font-family: var(--font-mono); }
-        .day-cell.booked .day-number { color: #fff !important; text-shadow: 0 1px 3px rgba(0,0,0,0.5); }
-        .day-cell:not(.booked):not(.out-of-bounds) .day-number { font-size: 30px; }
+        .day-cell .date-display-wrapper { display: flex; align-items: center; justify-content: center; gap: 4px; font-weight: bold; width: 100%; }
+        .day-cell .day-number { font-size: 16px; font-weight: 700; font-family: var(--font-mono); }
+        .day-cell.booked .day-number { color: #fff !important; text-shadow: 0 1px 2px rgba(0,0,0,0.3); }
+        .day-cell:not(.booked):not(.out-of-bounds) .day-number { font-size: 28px; }
         .day-cell .month-circle {
             display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 50%; color: white;
-            font-size: 10px; font-weight: bold; box-shadow: 0 2px 6px rgba(0,0,0,0.25); text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+            font-size: 10px; font-weight: bold; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-        .day-cell:not(.booked):not(.out-of-bounds) .month-circle { width: 38px; height: 38px; font-size: 19px; }
-        .day-cell .day-name { font-size: 9px; font-weight: bold; opacity: 0.85; }
+        .day-cell:not(.booked):not(.out-of-bounds) .month-circle { width: 36px; height: 36px; font-size: 18px; }
+        .day-cell .day-name { font-size: 9px; font-weight: 600; opacity: 0.8; }
         .day-cell.booked .day-name { color: #fff; }
-        .day-cell .icon-status { font-size: 12px; line-height: 1; margin-top: 1px; }
-        .day-cell .booking-note { font-size: 7px; background: rgba(0,0,0,0.4); padding: 1px 4px; border-radius: 4px; width: 95%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #fff; }
-        .day-cell.friday-highlight { border: 2px solid var(--teal) !important; }
+        .day-cell .icon-status { font-size: 12px; line-height: 1; margin-top: 2px; }
+        .day-cell .booking-note { font-size: 8px; background: rgba(0,0,0,0.3); padding: 2px 6px; border-radius: 6px; width: 95%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #fff; margin-top: 2px; }
+        .day-cell.friday-highlight { border: 1px solid var(--accent-teal) !important; }
         .day-cell.current-date-highlight {
-            background-color: var(--gold) !important; color: #2B1F04 !important;
-            border: 2px solid #8A6410 !important; box-shadow: 0 0 0 4px rgba(200,155,60,0.18) !important;
+            background-color: var(--win-blue) !important; color: #fff !important;
+            border: 2px solid var(--win-blue-light) !important; box-shadow: 0 0 0 4px rgba(0, 103, 192, 0.2) !important;
         }
-        .day-cell.current-date-highlight .day-number, .day-cell.current-date-highlight .day-name { color: #2B1F04 !important; }
+        .day-cell.current-date-highlight .day-number, .day-cell.current-date-highlight .day-name { color: #fff !important; }
+
+        /* Tooltip - iPadOS Context Menu */
         .booking-tooltip {
-            position: fixed; background: rgba(14, 26, 34, 0.97); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255,255,255,0.15); border-radius: var(--radius-lg); padding: 16px 18px;
-            color: #fff; font-size: 13px; max-width: 280px; min-width: 230px; box-shadow: 0 22px 55px rgba(0,0,0,0.55);
+            position: fixed; background: var(--bg-container-solid); backdrop-filter: blur(40px) saturate(180%); -webkit-backdrop-filter: blur(40px) saturate(180%);
+            border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 18px 20px;
+            color: var(--text-color); font-size: 14px; max-width: 300px; min-width: 250px; box-shadow: var(--shadow-hover);
             z-index: 10000; line-height: 1.6; direction: rtl; display: none;
         }
-        .booking-tooltip .tt-title { font-size: 15.5px; font-weight: 800; margin-bottom: 8px; color: var(--gold-light); display: flex; align-items: center; gap: 7px; }
+        .booking-tooltip .tt-title { font-size: 17px; font-weight: 700; margin-bottom: 12px; color: var(--win-blue); display: flex; align-items: center; gap: 8px; }
         .booking-tooltip .tt-title::before { font-family: "Font Awesome 6 Free"; font-weight: 900; content: "\f2bd"; }
-        .booking-tooltip .tt-row { display: flex; justify-content: space-between; gap: 10px; border-bottom: 1px solid rgba(255,255,255,0.08); padding: 4px 0; }
-        .booking-tooltip .tt-label { opacity: 0.7; display: flex; align-items: center; gap: 6px; }
-        .booking-tooltip .tt-label i { width: 14px; text-align: center; color: var(--gold-light); }
-        .booking-tooltip .tt-value { font-weight: 700; }
+        .booking-tooltip .tt-row { display: flex; justify-content: space-between; gap: 12px; border-bottom: 1px solid var(--border-color); padding: 6px 0; }
+        .booking-tooltip .tt-label { opacity: 0.6; display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 13px; }
+        .booking-tooltip .tt-label i { width: 16px; text-align: center; color: var(--text-muted); }
+        .booking-tooltip .tt-value { font-weight: 600; }
         .booking-tooltip .tt-close {
-            position: absolute; top: 8px; left: 8px; background: rgba(255,255,255,0.12); border: none; color: #fff;
-            width: 26px; height: 26px; border-radius: 50%; cursor: pointer; font-size: 12px; display: none; align-items: center; justify-content: center;
+            position: absolute; top: 12px; left: 12px; background: var(--cell-bg); border: none; color: var(--text-color);
+            width: 28px; height: 28px; border-radius: 8px; cursor: pointer; font-size: 14px; display: none; align-items: center; justify-content: center;
         }
-        .audit-log { margin-top: 16px; padding: 12px 14px; background: var(--card-bg); border-radius: var(--radius-md); border: 1px solid var(--border-color); }
-        .audit-log h3 { font-size: 14px; margin-bottom: 8px; display: flex; align-items: center; gap: 7px; color: var(--navy-light); }
-        body.dark-mode .audit-log h3 { color: var(--gold-light); }
-        .audit-log .log-item { font-size: 12px; padding: 6px 0; border-bottom: 1px solid var(--border-color); display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+
+        /* Audit Log & Modals */
+        .audit-log { margin-top: 20px; padding: 16px 20px; background: var(--card-bg); border-radius: var(--radius-md); border: 1px solid var(--border-color); }
+        .audit-log h3 { font-size: 16px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; color: var(--text-color); }
+        .audit-log .log-item { font-size: 13px; padding: 8px 0; border-bottom: 1px solid var(--border-color); display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
         .audit-log .log-item:last-child { border-bottom: none; }
-        .audit-log .log-time { opacity: 0.55; font-size: 11px; font-family: var(--font-mono); }
-        .audit-log .log-item i { color: var(--navy-light); width: 14px; text-align: center; }
-        body.dark-mode .audit-log .log-item i { color: var(--gold-light); }
-        .image-timestamp { font-size: 13px; font-weight: bold; text-align: center; background: linear-gradient(135deg, #f5f7fa, #e9ecef); padding: 6px 10px; margin-bottom: 10px; border-radius: 30px; color: #2c3e50; display: inline-block; }
-        .timestamp-wrapper { text-align: center; margin-bottom: 8px; }
-        #loadingOverlay { position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(245,242,234,0.92); display:flex; flex-direction:column; gap:14px; justify-content:center; align-items:center; z-index:9999; font-size:16px; font-weight:700; color:var(--navy); font-family: var(--font-ui); }
-        .spinner { width: 46px; height: 46px; border: 4px solid rgba(18,59,82,0.15); border-top: 4px solid var(--gold); border-radius: 50%; animation: spin .9s linear infinite; }
+        .audit-log .log-time { opacity: 0.5; font-size: 12px; font-family: var(--font-mono); }
+        .audit-log .log-item i { color: var(--win-blue); width: 16px; text-align: center; }
+        
+        .image-timestamp { font-size: 14px; font-weight: 600; text-align: center; background: var(--card-solid); padding: 8px 16px; margin-bottom: 12px; border-radius: 12px; color: var(--text-color); display: inline-block; box-shadow: var(--shadow-sm); }
+        .timestamp-wrapper { text-align: center; margin-bottom: 12px; }
+
+        /* Overlay & Spinner */
+        #loadingOverlay { position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.4); backdrop-filter: blur(8px); display:flex; flex-direction:column; gap:16px; justify-content:center; align-items:center; z-index:9999; font-size:18px; font-weight:600; color:#fff; font-family: var(--font-ui); }
+        .spinner { width: 48px; height: 48px; border: 4px solid rgba(255,255,255,0.2); border-top: 4px solid var(--win-blue); border-radius: 50%; animation: spin .8s linear infinite; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
         #csvFileInput { display: none; }
         #toastStack {
-            position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%);
-            z-index: 10002; display: flex; flex-direction: column; gap: 8px; align-items: center; width: min(94vw, 420px);
+            position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+            z-index: 10002; display: flex; flex-direction: column; gap: 10px; align-items: center; width: min(94vw, 420px);
         }
         .toast {
-            width: 100%; background: var(--navy); color: #fff; padding: 12px 16px;
-            border-radius: 12px; box-shadow: 0 12px 30px rgba(0,0,0,0.3);
-            display: flex; align-items: center; gap: 10px; font-size: 13.5px; font-weight: 600; animation: toast-in .25s ease;
+            width: 100%; background: var(--card-solid); backdrop-filter: blur(20px); color: var(--text-color); padding: 14px 20px;
+            border: 1px solid var(--border-color); border-radius: 12px; box-shadow: var(--shadow-hover);
+            display: flex; align-items: center; gap: 12px; font-size: 14px; font-weight: 500; animation: toast-in .3s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
-        .toast.success { background: linear-gradient(135deg, var(--teal), #17705A); }
-        .toast.error { background: linear-gradient(135deg, var(--coral), #A83030); }
-        .toast.info { background: linear-gradient(135deg, var(--navy), var(--navy-light)); }
-        .toast i { font-size: 16px; flex-shrink: 0; }
-        @keyframes toast-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes toast-out { from { opacity: 1; } to { opacity: 0; transform: translateY(6px); } }
+        .toast.success { border-right: 4px solid var(--accent-teal); }
+        .toast.error { border-right: 4px solid var(--accent-coral); }
+        .toast.info { border-right: 4px solid var(--win-blue); }
+        .toast i { font-size: 18px; flex-shrink: 0; }
+        .toast.success i { color: var(--accent-teal); }
+        .toast.error i { color: var(--accent-coral); }
+        .toast.info i { color: var(--win-blue); }
+        
+        @keyframes toast-in { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes toast-out { from { opacity: 1; } to { opacity: 0; transform: translateY(10px); } }
         .toast.leaving { animation: toast-out .2s ease forwards; }
+
         .trash-modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(14,26,34,0.55); backdrop-filter: blur(3px);
-            display: none; justify-content: center; align-items: center; z-index: 10001; padding: 10px;
+            background: rgba(0,0,0,0.4); backdrop-filter: blur(8px);
+            display: none; justify-content: center; align-items: center; z-index: 10001; padding: 16px;
         }
         .trash-modal-content {
-            background: var(--bg-container); backdrop-filter: blur(16px); border: 1px solid var(--border-color);
-            border-radius: var(--radius-lg); padding: 18px; max-width: 600px; width: 100%;
-            max-height: 85vh; overflow-y: auto; color: var(--text-color);
+            background: var(--bg-container-solid); backdrop-filter: blur(40px); border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg); padding: 24px; max-width: 600px; width: 100%;
+            max-height: 85vh; overflow-y: auto; color: var(--text-color); box-shadow: var(--shadow);
         }
-        .trash-modal-content h3 { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; color: var(--coral); }
-        .trash-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 4px; border-bottom: 1px solid var(--border-color); gap: 8px; flex-wrap: wrap; }
+        .trash-modal-content h3 { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; font-size: 20px; color: var(--text-color); }
+        .trash-item { display: flex; justify-content: space-between; align-items: center; padding: 14px 4px; border-bottom: 1px solid var(--border-color); gap: 12px; flex-wrap: wrap; }
         .trash-item:last-child { border-bottom: none; }
         .trash-item button {
-            padding: 7px 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 11px; color: white;
-            display: inline-flex; align-items: center; gap: 5px;
+            padding: 8px 14px; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 12px; color: white;
+            display: inline-flex; align-items: center; gap: 6px;
         }
-        .btn-restore { background: var(--teal); }
-        .btn-permanent-delete { background: var(--coral); }
+        .btn-restore { background: var(--accent-teal); }
+        .btn-permanent-delete { background: var(--accent-coral); }
         .trash-close-btn {
-            margin-top: 14px; padding: 11px 16px; border: none; background: var(--navy); color: white;
-            border-radius: 10px; cursor: pointer; font-weight: 700; width: 100%; font-family: var(--font-ui);
-            display: flex; align-items: center; justify-content: center; gap: 7px;
+            margin-top: 20px; padding: 12px 20px; border: none; background: var(--cell-bg); color: var(--text-color);
+            border-radius: 8px; cursor: pointer; font-weight: 600; width: 100%; font-family: var(--font-ui);
+            display: flex; align-items: center; justify-content: center; gap: 8px; transition: background .2s;
         }
+        .trash-close-btn:hover { background: var(--border-color); }
+
+        /* Custom Scrollbar - Win11 Style */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.2); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.4); }
+        body.dark-mode ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); }
+        body.dark-mode ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+
         @media (max-width: 768px) {
-            body { padding: 6px; font-size: 13px; }
-            .container { padding: 10px; border-radius: 12px; }
-            .digital-clock { padding: 11px 10px; gap: 8px; }
-            .clock-time { font-size: 1.7rem; }
-            .clock-day { font-size: 0.8rem; padding: 5px 10px; }
-            .clock-ampm { font-size: 0.8rem; }
-            .top-bar { padding: 8px; gap: 6px; }
-            .file-status { font-size: 11px; padding: 5px 10px; width: 100%; justify-content: center; }
+            body { padding: 8px; font-size: 14px; }
+            .container { padding: 16px; border-radius: 16px; }
+            .digital-clock { padding: 16px 12px; gap: 10px; }
+            .clock-time { font-size: 2rem; }
+            .clock-day { font-size: 0.85rem; padding: 6px 12px; }
+            .top-bar { padding: 10px; gap: 8px; }
+            .file-status { font-size: 12px; padding: 6px 12px; width: 100%; justify-content: center; }
             .toolbar-actions { width: 100%; justify-content: center; }
-            .btn-pill { height: 36px; font-size: 11px; padding: 0 10px; flex: 1; min-width: 0; }
-            .btn-pill.icon-only { flex: 0 0 auto; width: 36px; }
-            .tools-dropdown { left: 50%; transform: translateX(50%); right: auto; }
-            .dashboard-stats { grid-template-columns: repeat(2, 1fr); gap: 8px; }
-            .stat-card .num { font-size: 1.35rem; }
-            .stat-card .label { font-size: 10px; }
-            .alerts-container { padding: 8px 10px; font-size: 11px; }
-            .alert-badge { font-size: 11px; padding: 4px 10px; }
-            .form-group { grid-template-columns: 1fr; gap: 8px; padding: 10px; }
-            .form-group .wide, .form-group .submit-col { grid-column: 1; }
-            .date-row { flex-direction: row; }
-            .date-row input, .date-row select { flex: 1; min-width: 0; }
-            input, select, textarea { font-size: 16px; }
-            .table-wrapper { margin: 0 0 14px; border-radius: 10px; }
-            table { font-size: 12px; }
-            th, td { padding: 8px 5px; font-size: 11px; }
-            .timeline-row { gap: 3px; }
-            .timeline-grid { gap: 3px; }
-            .day-cell { border-radius: 9px; font-size: 9px; }
+            .btn-pill { height: 38px; font-size: 12px; padding: 0 12px; flex: 1; min-width: 0; }
+            .btn-pill.icon-only { flex: 0 0 auto; width: 38px; }
+            .tools-dropdown { left: 50%; transform: translateX(-50%); right: auto; width: 90%; }
+            .dashboard-stats { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            .stat-card { padding: 16px 12px; }
+            .stat-card .num { font-size: 1.5rem; }
+            .alerts-container { padding: 10px 12px; font-size: 12px; }
+            .form-group { grid-template-columns: 1fr; gap: 12px; padding: 16px; }
+            .table-wrapper { margin: 0 0 16px; border-radius: 12px; }
+            table { font-size: 12.5px; }
+            th, td { padding: 10px 6px; font-size: 12px; }
+            .timeline-row { gap: 4px; }
+            .timeline-grid { gap: 4px; }
+            .day-cell { border-radius: 12px; font-size: 9px; }
             .day-cell .day-number { font-size: 14px; }
-            .day-cell:not(.booked):not(.out-of-bounds) .day-number { font-size: 26px; }
-            .day-cell .month-circle { width: 16px; height: 16px; font-size: 8px; }
-            .day-cell:not(.booked):not(.out-of-bounds) .month-circle { width: 30px; height: 30px; font-size: 15px; }
-            .day-cell .day-name { font-size: 8px; }
-            .day-cell .icon-status { font-size: 10px; }
-            .day-cell .booking-note { font-size: 6px; padding: 0 2px; }
+            .day-cell:not(.booked):not(.out-of-bounds) .day-number { font-size: 24px; }
             .booking-tooltip { left: 50% !important; top: 50% !important; transform: translate(-50%, -50%); max-width: 90vw; pointer-events: auto; }
             .booking-tooltip .tt-close { display: flex; }
-            .audit-log { padding: 10px; }
-            .audit-log h3 { font-size: 13px; }
-            .audit-log .log-item { font-size: 11px; }
-            .trash-item { flex-direction: column; align-items: stretch; }
-            .trash-item button { width: 100%; justify-content: center; }
         }
         @media (max-width: 400px) {
-            .clock-time { font-size: 1.45rem; }
-            .clock-day { font-size: 0.72rem; padding: 4px 8px; }
-            .day-cell .day-number { font-size: 12px; }
-            .day-cell:not(.booked):not(.out-of-bounds) .day-number { font-size: 22px; }
-            .day-cell .month-circle { width: 14px; height: 14px; font-size: 7px; }
-            .day-cell:not(.booked):not(.out-of-bounds) .month-circle { width: 26px; height: 26px; font-size: 13px; }
-            .day-cell .day-name { font-size: 7px; display: none; }
-            .btn-pill { font-size: 10px; }
+            .clock-time { font-size: 1.6rem; }
+            .day-cell:not(.booked):not(.out-of-bounds) .day-number { font-size: 20px; }
         }
         @media (min-width: 769px) {
             .day-cell:hover:not(.out-of-bounds) {
-                transform: scale(1.8) translateY(-3px); box-shadow: 0 15px 35px rgba(0,0,0,0.25); z-index: 999;
-                backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+                transform: scale(1.15) translateY(-2px); box-shadow: var(--shadow-hover); z-index: 999;
             }
-            .day-cell:hover .month-circle { width: 14px; height: 14px; font-size: 7px; }
-            .day-cell:hover .day-number { font-size: 14px; }
-            .day-cell:hover .day-name { font-size: 7px; }
-            .day-cell:hover .icon-status { font-size: 12px; }
-            .day-cell:hover .booking-note { font-size: 7px; }
         }
     </style>
 </head>
@@ -415,7 +473,7 @@
             <button id="whatsapp2Btn" class="btn-pill tone-teal" title="إرسال صورة التقويم عبر واتساب +201001415456"><i class="fa-brands fa-whatsapp"></i><span>واتساب 2</span></button>
 
             <div class="tools-menu">
-                <button id="toolsMenuBtn" class="btn-pill tone-gold" aria-haspopup="true" aria-expanded="false"><i class="fa-solid fa-toolbox"></i><span>أدوات</span><i class="fa-solid fa-chevron-down" style="font-size:10px;"></i></button>
+                <button id="toolsMenuBtn" class="btn-pill tone-gold" aria-haspopup="true" aria-expanded="false"><i class="fa-solid fa-toolbox"></i><span>أدوات</span><i class="fa-solid fa-chevron-down" style="font-size:10px; margin-right:4px;"></i></button>
                 <div class="tools-dropdown" id="toolsDropdown">
                     <button id="exportExcelBtn"><i class="fa-solid fa-file-excel"></i>تصدير Excel</button>
                     <button id="importCsvBtn"><i class="fa-solid fa-file-csv"></i>استيراد CSV</button>
@@ -439,7 +497,7 @@
 
     <div class="alerts-container" id="alertsContainer">
         <i class="fa-solid fa-bell alerts-icon"></i>
-        <span id="alertsList" style="display:flex; gap:5px; flex-wrap:wrap;">لا توجد تنبيهات</span>
+        <span id="alertsList" style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">لا توجد تنبيهات</span>
     </div>
 
     <div class="form-group">
@@ -462,7 +520,7 @@
     <div class="search-bar">
         <i class="fa-solid fa-magnifying-glass search-icon"></i>
         <input type="text" id="searchInput" placeholder="بحث بالاسم أو الهاتف...">
-        <button id="toggleArchiveView" class="btn-pill tone-ghost icon-only" title="عرض/إخفاء الحجوزات المؤرشفة في الجدول" style="margin-left: 5px;"><i class="fa-solid fa-box-archive"></i></button>
+        <button id="toggleArchiveView" class="btn-pill tone-ghost icon-only" title="عرض/إخفاء الحجوزات المؤرشفة في الجدول" style="margin-left: 6px;"><i class="fa-solid fa-box-archive"></i></button>
     </div>
 
     <div id="exportArea">
@@ -505,7 +563,7 @@
 
 <div class="trash-modal" id="archiveModal">
     <div class="trash-modal-content">
-        <h3 style="color: var(--navy-light);"><i class="fa-solid fa-box-archive"></i> الحجوزات المؤرشفة (أقدم من شهر)</h3>
+        <h3 style="color: var(--win-blue);"><i class="fa-solid fa-box-archive"></i> الحجوزات المؤرشفة (أقدم من شهر)</h3>
         <div id="archiveList" style="max-height: 60vh; overflow-y: auto;"></div>
         <button class="trash-close-btn" onclick="document.getElementById('archiveModal').style.display='none'"><i class="fa-solid fa-xmark"></i> إغلاق</button>
     </div>
@@ -513,6 +571,19 @@
 
 <script>
 (function(){
+    // 1. Safe Storage Fallback for sandbox environments
+    const safeStorage = {
+        _data: {},
+        getItem: function(key) { return this._data[key] || null; },
+        setItem: function(key, value) { this._data[key] = value; }
+    };
+    let ls;
+    try {
+        ls = window.localStorage || safeStorage;
+    } catch (e) {
+        ls = safeStorage;
+    }
+
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw89dPJkt_Oe-tMRCslmkW-O3eIlW2E8wObUEAEwq1cFhMAmpxqhNlHbix52m2oAdKM/exec";
     const CURRENT_YEAR = new Date().getFullYear();
     const ARABIC_MONTHS = ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"];
@@ -522,10 +593,10 @@
 
     const ARCHIVE_AFTER_MONTHS = 1;
     let bookings = [];
-    let archivedBookings = JSON.parse(localStorage.getItem('abdul_radi_archive') || '[]');
-    let trashedBookings = JSON.parse(localStorage.getItem('abdul_radi_trash') || '[]');
+    let archivedBookings = JSON.parse(ls.getItem('abdul_radi_archive') || '[]');
+    let trashedBookings = JSON.parse(ls.getItem('abdul_radi_trash') || '[]');
     let editBookingId = null;
-    let auditLogs = JSON.parse(localStorage.getItem('audit_logs') || '[]');
+    let auditLogs = JSON.parse(ls.getItem('audit_logs') || '[]');
     let searchTerm = '';
     let showArchiveInTable = false;
     const tooltip = document.getElementById('bookingTooltip');
@@ -562,7 +633,7 @@
             toolsMenuBtn.setAttribute('aria-expanded', String(willOpen));
         });
         document.addEventListener('click', function(e) {
-            if (!toolsDropdown.contains(e.target) && e.target !== toolsMenuBtn) {
+            if (!toolsDropdown.contains(e.target) && e.target !== toolsMenuBtn && !toolsMenuBtn.contains(e.target)) {
                 toolsDropdown.classList.remove('open');
                 toolsMenuBtn.setAttribute('aria-expanded', 'false');
             }
@@ -664,7 +735,7 @@
         const entry = { time: new Date().toLocaleString('ar-EG'), action, details };
         auditLogs.unshift(entry);
         if (auditLogs.length > 10) auditLogs.pop();
-        localStorage.setItem('audit_logs', JSON.stringify(auditLogs));
+        ls.setItem('audit_logs', JSON.stringify(auditLogs));
         renderAuditLog();
     }
 
@@ -695,14 +766,14 @@
                     bookings = allNonDeleted.filter(b => !isArchived(b));
                     archivedBookings = allNonDeleted.filter(b => isArchived(b));
                     trashedBookings = cloudData.filter(b => b.deleted);
-                    localStorage.setItem('abdul_radi_backup', JSON.stringify([...bookings, ...archivedBookings, ...trashedBookings]));
-                    localStorage.setItem('abdul_radi_archive', JSON.stringify(archivedBookings));
-                    localStorage.setItem('abdul_radi_trash', JSON.stringify(trashedBookings));
+                    ls.setItem('abdul_radi_backup', JSON.stringify([...bookings, ...archivedBookings, ...trashedBookings]));
+                    ls.setItem('abdul_radi_archive', JSON.stringify(archivedBookings));
+                    ls.setItem('abdul_radi_trash', JSON.stringify(trashedBookings));
                 }
                 renderAll();
             } else throw new Error();
         } catch (e) {
-            let local = localStorage.getItem('abdul_radi_backup');
+            let local = ls.getItem('abdul_radi_backup');
             if(local) {
                 const all = JSON.parse(local);
                 bookings = all.filter(b => !b.deleted && !isArchived(b)).map(normalizeBookingDates);
@@ -803,9 +874,9 @@
             const index = trashedBookings.findIndex(b => b.id === id);
             if (index !== -1) trashedBookings.splice(index, 1);
         }
-        localStorage.setItem('abdul_radi_backup', JSON.stringify([...bookings, ...archivedBookings, ...trashedBookings]));
-        localStorage.setItem('abdul_radi_archive', JSON.stringify(archivedBookings));
-        localStorage.setItem('abdul_radi_trash', JSON.stringify(trashedBookings));
+        ls.setItem('abdul_radi_backup', JSON.stringify([...bookings, ...archivedBookings, ...trashedBookings]));
+        ls.setItem('abdul_radi_archive', JSON.stringify(archivedBookings));
+        ls.setItem('abdul_radi_trash', JSON.stringify(trashedBookings));
     }
 
     function checkConflict(start, end, excludeId = null) {
@@ -829,26 +900,26 @@
             const p = parseNotes(b.notes, b);
             const isArch = isArchived(b);
             const nameDisplay = isArch 
-                ? `${p.name || 'غير محدد'} <span style="font-size:9px; background:rgba(0,0,0,0.1); padding:1px 4px; border-radius:4px; margin-right:4px; color:#555;">مؤرشف</span>` 
+                ? `${p.name || 'غير محدد'} <span style="font-size:9px; background:rgba(0, 103, 192, 0.1); color:var(--win-blue); padding:2px 6px; border-radius:6px; margin-right:4px;">مؤرشف</span>` 
                 : (p.name || 'غير محدد');
             const tr = tbody.insertRow();
             tr.innerHTML = `
-                <td>${nameDisplay}</td>
-                <td>${p.phone || '-'}</td>
+                <td style="font-weight:600;">${nameDisplay}</td>
+                <td style="opacity:0.8;">${p.phone || '-'}</td>
                 <td>${formatDateArabic(b.start)}</td>
                 <td>${b.days}</td>
                 <td>${formatDateArabic(b.end)}</td>
-                <td>${p.total || 0}</td>
+                <td style="font-weight:600;">${p.total || 0}</td>
                 <td>${p.paid || 0}</td>
-                <td>${p.text || '-'}</td>
+                <td style="opacity:0.7; max-width:150px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${p.text || '-'}</td>
                 <td><span class="color-badge" style="background:${b.color}"></span></td>
                 <td>
-                    <button class="btn-edit" data-action="edit" data-id="${b.id}">تعديل</button>
-                    <button class="btn-delete" data-action="delete" data-id="${b.id}">حذف</button>
+                    <button class="btn-edit" data-action="edit" data-id="${b.id}"><i class="fa-solid fa-pen"></i></button>
+                    <button class="btn-delete" data-action="delete" data-id="${b.id}"><i class="fa-solid fa-trash"></i></button>
                 </td>
             `;
         });
-        localStorage.setItem('abdul_radi_backup', JSON.stringify([...bookings, ...archivedBookings, ...trashedBookings]));
+        ls.setItem('abdul_radi_backup', JSON.stringify([...bookings, ...archivedBookings, ...trashedBookings]));
         updateDashboard();
         updateAlerts();
     }
@@ -894,20 +965,20 @@
             const diffEnd = Math.ceil((end - today) / (1000*60*60*24));
             const name = getCustomerName(b);
             if (diffStart >= 0 && diffStart <= 3) {
-                alerts.push({ type: 'danger', text: `<i class="fa-solid fa-triangle-exclamation"></i> ${name} خلال ${diffStart} يوم` });
+                alerts.push({ type: 'danger', text: `${name} خلال ${diffStart} يوم` });
             }
             if (diffEnd === 0 || diffEnd === 1) {
-                alerts.push({ type: 'warning', text: `<i class="fa-solid fa-clock"></i> ${name} ينتهي اليوم/غداً` });
+                alerts.push({ type: 'warning', text: `${name} ينتهي اليوم/غداً` });
             }
             if (diffStart > 3 && diffStart <= 7) {
-                alerts.push({ type: 'info', text: `<i class="fa-solid fa-circle-info"></i> ${name} بعد ${diffStart} يوم` });
+                alerts.push({ type: 'info', text: `${name} بعد ${diffStart} يوم` });
             }
         });
         const container = document.getElementById('alertsList');
         if (alerts.length === 0) {
-            container.innerHTML = '<span style="opacity:0.6;"><i class="fa-solid fa-circle-check"></i> كل شيء هادئ</span>';
+            container.innerHTML = '<span style="opacity:0.6; font-size:13px;">كل شيء هادئ</span>';
         } else {
-            container.innerHTML = alerts.map(a => `<span class="alert-badge ${a.type}">${a.text}</span>`).join('');
+            container.innerHTML = alerts.map(a => `<span class="alert-badge ${a.type}"><i class="fa-solid fa-circle-exclamation"></i> ${a.text}</span>`).join('');
         }
     }
 
@@ -937,14 +1008,14 @@
                     cell.className = 'day-cell out-of-bounds';
                     if (color) {
                         cell.style.backgroundColor = color;
-                        cell.style.opacity = '0.5';
+                        cell.style.opacity = '0.4';
                         cell.style.pointerEvents = 'auto';
                         cell.style.cursor = 'pointer';
                         cell.dataset.booking = JSON.stringify(bookingData || {});
                         const p = fullNote ? parseNotes(fullNote) : { name: '' };
-                        cell.innerHTML = `<div class="date-display-wrapper"><span class="day-number">${dayNum}</span><span class="month-circle" style="background:${circleColor}; opacity:0.4;">${mm}</span></div><div class="booking-note">${p.name || 'محجوز'}</div>`;
+                        cell.innerHTML = `<div class="date-display-wrapper"><span class="day-number">${dayNum}</span><span class="month-circle" style="background:${circleColor}; opacity:0.5;">${mm}</span></div><div class="booking-note">${p.name || 'محجوز'}</div>`;
                     } else {
-                        cell.innerHTML = `<div class="date-display-wrapper"><span class="day-number">${dayNum}</span><span class="month-circle" style="background:${circleColor}; opacity:0.4;">${mm}</span></div>`;
+                        cell.innerHTML = `<div class="date-display-wrapper"><span class="day-number">${dayNum}</span><span class="month-circle" style="background:${circleColor}; opacity:0.3;">${mm}</span></div>`;
                     }
                 } else {
                     let {color, fullNote, bookingData} = getDayInfoWithData(dateStr);
@@ -1154,9 +1225,9 @@
             return `<div class="trash-item">
                 <div>
                     <strong>${p.name || 'غير محدد'}</strong><br>
-                    <small>${formatDateArabic(b.start)} - ${b.days} يوم</small>
+                    <small style="opacity:0.7;">${formatDateArabic(b.start)} - ${b.days} يوم</small>
                 </div>
-                <div style="display:flex; gap:6px; flex-wrap:wrap;">
+                <div style="display:flex; gap:8px; flex-wrap:wrap;">
                     <button class="btn-restore" onclick="restoreBooking('${b.id}')"><i class="fa-solid fa-rotate-left"></i> استعادة</button>
                     <button class="btn-permanent-delete" onclick="permanentDeleteBooking('${b.id}')"><i class="fa-solid fa-fire"></i> نهائي</button>
                 </div>
@@ -1183,7 +1254,7 @@
         });
 
         try {
-            const canvas = await html2canvas(area, { scale: 2, backgroundColor: '#e9ecef', useCORS: true, logging: false, scrollX: 0, scrollY: -window.scrollY });
+            const canvas = await html2canvas(area, { scale: 2, backgroundColor: '#f3f4f6', useCORS: true, logging: false, scrollX: 0, scrollY: -window.scrollY });
             return canvas;
         } finally {
             originalStyles.forEach(({el, style}) => { el.style.backdropFilter = style; });
@@ -1370,7 +1441,7 @@
     document.getElementById('csvFileInput').addEventListener('change', function(e) { if(this.files?.[0]) importCSV(this.files[0]); this.value=''; });
     document.getElementById('darkModeToggle').addEventListener('click', toggleDarkMode);
     document.getElementById('trashBtn').addEventListener('click', openTrash);
-    document.getElementById('archiveBtn').addEventListener('click', openArchive);
+    document.getElementById('archiveBtn').addEventListener('click', () => window.openArchive());
     document.getElementById('fixDatesBtn').addEventListener('click', fixAllEndDates);
     document.getElementById('searchInput').addEventListener('input', function(e) {
         searchTerm = e.target.value;
@@ -1419,17 +1490,17 @@
         archivedBookings.sort((a,b) => b.start.localeCompare(a.start));
         container.innerHTML = archivedBookings.map(b => {
             const p = parseNotes(b.notes);
-            return `<div class="trash-item" style="border-bottom: 1px solid var(--border-color); padding: 10px 4px;">
+            return `<div class="trash-item">
                 <div style="flex: 1;">
                     <strong>${p.name || 'غير محدد'}</strong><br>
-                    <small>${formatDateArabic(b.start)} - ${formatDateArabic(b.end)} (${b.days} يوم)</small>
-                    <div style="font-size:11px; color:var(--text-muted); margin-top:4px;">
+                    <small style="opacity:0.7;">${formatDateArabic(b.start)} - ${formatDateArabic(b.end)} (${b.days} يوم)</small>
+                    <div style="font-size:12px; color:var(--text-muted); margin-top:6px;">
                         الإجمالي: ${p.total || 0} | المدفوع: ${p.paid || 0}
                     </div>
                 </div>
-                <div style="display:flex; gap:6px; flex-wrap:wrap;">
-                    <button class="btn-edit" style="height: 30px; min-width: 50px; padding: 0 8px;" onclick="startEditBooking('${b.id}', true)"><i class="fa-solid fa-pen"></i> تعديل</button>
-                    <button class="btn-delete" style="height: 30px; min-width: 50px; padding: 0 8px;" onclick="deleteBooking('${b.id}')"><i class="fa-solid fa-trash-can"></i> حذف</button>
+                <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                    <button class="btn-edit" onclick="startEditBooking('${b.id}', true)"><i class="fa-solid fa-pen"></i></button>
+                    <button class="btn-delete" onclick="deleteBooking('${b.id}')"><i class="fa-solid fa-trash"></i></button>
                 </div>
             </div>`;
         }).join('');
@@ -1440,11 +1511,16 @@
 </script>
 
 <script>
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-            navigator.serviceWorker.register('sw.js').catch(() => {});
-        });
-    }
+    // 2. Safely handle Service Worker for sandbox environments
+    try {
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                try {
+                    navigator.serviceWorker.register('sw.js').catch(() => {});
+                } catch(e) {}
+            });
+        }
+    } catch(e) {}
 </script>
 </body>
 </html>
